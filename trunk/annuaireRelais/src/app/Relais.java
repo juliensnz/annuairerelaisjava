@@ -38,7 +38,7 @@ public class Relais {
 		Relais nouveauRelais = null;
 		int x = (int)(Math.round(Math.random()*100));
 		int y = (int)(Math.round(Math.random()*100));
-		String nom = "Relais" + Relais.getId();
+		String nom = "Relais n¡ " + Relais.getId();
 		try {
 			nouveauRelais = new Relais(x, y, nom);
 		} catch (RelaisException e) {
@@ -106,14 +106,15 @@ public class Relais {
 	}
 
 	public void afficherRelais() {
-		System.out.println(this.nom + " :\nAbscisse : " + this.positionX + "\nOrdonnee : " + this.positionY + "\n\n");
+		System.out.println(this.nom + " :\n\nAbscisse : " + this.positionX + "\nOrdonnee : " + this.positionY +"\n");
 		afficherServices();
 	}
 	
 	public void afficherServices() {
-		System.out.print("Services disponnibles : \n");
+		System.out.println("Services disponnibles : \n");
 		for(String s : services)
 			System.out.println(s);
+		System.out.print("\n");
 	}
 	static public int getId(){
 		return Relais.id;

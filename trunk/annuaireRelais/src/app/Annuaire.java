@@ -6,16 +6,18 @@ import exceptions.RelaisException;
 
 public class Annuaire {
 	
-	public static List<Relais> annuaireRelais = new LinkedList<Relais>();
-
+	private List<Relais> annuaireRelais = null;
+	
 	public Annuaire() {
+		this.annuaireRelais = new LinkedList<Relais>();
+		
 		System.out.println("Création de l'annuaire terminé.");
 	}
 
 	public void ajouterRelais() {
 
 		Relais nouveauRelais = new Relais();
-		Annuaire.annuaireRelais.add(nouveauRelais);
+		this.annuaireRelais.add(nouveauRelais);
 	}//Ajoute un nouveau relais par défaut, dépourvu de services, de coordonnées (0,0)
 
 	public void ajouterRelais(int positionX, int positionY, String nom) {
@@ -27,12 +29,20 @@ public class Annuaire {
 		} catch (RelaisException e) {
 			nouveauRelais = new Relais();
 		}
-		Annuaire.annuaireRelais.add(nouveauRelais);
+		this.annuaireRelais.add(nouveauRelais);
 	}
 	
-	public void remplirAleatoirementAnnuaire(int nbRelais) {
+	public void remplirAleatoirement(int nbRelais) {
 		List<Relais> mesRelais = Relais.genererRelais(nbRelais);
 		
-		Annuaire.annuaireRelais.addAll(mesRelais);
+		this.annuaireRelais.addAll(mesRelais);
+	}
+	
+	public void afficherAnnuaire() {
+		System.out.println("Voici la liste des relais présents dans l'annuaire : \n");
+		for(Relais r : this.annuaireRelais) {
+			r.afficherRelais();
+			System.out.println("=========================");
+		}
 	}
 } 

@@ -2,6 +2,7 @@ package main;
 
 import exceptions.RelaisException;
 import app.Relais;
+import app.Annuaire;
 
 public class main {
 
@@ -9,7 +10,7 @@ public class main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Relais test = null;
+		/*Relais test = null;
 		try
 		{
 			test = new Relais(12,34, "R1");
@@ -19,9 +20,9 @@ public class main {
 			test.afficherRelais();
 		}catch (RelaisException e){
 			System.out.println("Plantage");
-		};
-		
-		
+		};*/
+	Annuaire a = new Annuaire();
+	a.remplirAleatoirement(10);
+	a.afficherAnnuaire();
 	}
-
 }
