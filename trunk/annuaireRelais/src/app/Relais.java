@@ -89,7 +89,11 @@ public class Relais {
 				this.services.add(s);
 		}
 	}
-
+	
+	public void retirerService(String service) {
+			this.services.remove(service);
+	}
+	
 	public double distance(int x, int y) {
 		return Math.sqrt(Math.pow((this.positionX - x), 2) + Math.pow((this.positionY - y), 2));
 	}
@@ -116,7 +120,25 @@ public class Relais {
 			System.out.println(s);
 		System.out.print("\n");
 	}
-	static public int getId(){
+	public static int getId(){
 		return Relais.id;
 	}
+	
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public int getX() {
+		return this.positionX;
+	}
+	
+	public int getY() {
+		return this.positionY;
+	}
+	
+	public List<String> getServices() {
+		return this.services;
+	}
+
+	
 }
