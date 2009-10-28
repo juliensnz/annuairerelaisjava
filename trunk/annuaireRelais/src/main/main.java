@@ -24,5 +24,6 @@ public class main {
 	Annuaire a = new Annuaire();
 	a.remplirAleatoirement(10);
 	a.afficherAnnuaire();
+	a.editerUnRelais();
 	}
 }

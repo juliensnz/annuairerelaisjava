@@ -108,17 +108,55 @@ public class Relais {
 		else
 			return false;
 	}
-
+	
+	public void editer()
+	{
+		System.out.println("Edition du relais : "+this.nom);
+		System.out.println("Que voulez vous Žditer ?");
+		System.out.println("1. Nom\n2. Position x\n3. Position y\n4. Services");
+		Scanner scan = new Scanner(System.in);
+		int choixEdit = 0;
+		do
+		{
+			System.out.print("Choix : ");
+			choixEdit = scan.nextInt();
+		}while(!(choixEdit > 0 && choixEdit <= 4));
+		switch(choixEdit)
+		{
+			case 1:
+				System.out.print("Nom : ");
+				this.nom = scan.next();
+				break;
+			case 2:
+				System.out.print("X : ");
+				this.positionX = scan.nextInt();
+				break;
+			case 3:
+				System.out.print("Y : ");
+				this.positionY = scan.nextInt();
+				break;
+			case 4:
+				
+				System.out.print("Service ˆ ajouter : ");
+			try{
+				this.ajouterService(scan.next());
+			} catch (RelaisException e) {}
+				break;
+			default:
+			 
+		}
+	}
+	
 	public void afficherRelais() {
-		System.out.println(this.nom + " :\n\nAbscisse : " + this.positionX + "\nOrdonnee : " + this.positionY +"\n");
+		System.out.println(this.nom + " :\nAbscisse : " + this.positionX + "\nOrdonnee : " + this.positionY );
 		afficherServices();
 	}
 	
 	public void afficherServices() {
-		System.out.println("Services disponnibles : \n");
+		System.out.println("Services disponnibles :");
 		for(String s : services)
 			System.out.println(s);
-		System.out.print("\n");
+		
 	}
 	public static int getId(){
 		return Relais.id;
