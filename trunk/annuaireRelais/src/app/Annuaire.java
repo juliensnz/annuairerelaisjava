@@ -137,4 +137,9 @@ public class Annuaire {
 		}
 		return resultat;
 	}
+	
+	public void rechercherRelais(int positionX,int positionY,String service)
+	{
+		
+	}
 } 
