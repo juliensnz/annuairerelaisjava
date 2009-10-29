@@ -22,8 +22,9 @@ public class main {
 			System.out.println("Plantage");
 		};*/
 	Annuaire a = new Annuaire();
-	a.remplirAleatoirement(10);
-	a.afficherAnnuaire();
+	a.ajouterRelais(12, 12, "test");
+	a.editerUnRelais();
+	//a.afficherAnnuaire();
 	a.editerUnRelais();
 	}
 }
