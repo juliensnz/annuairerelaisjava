@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -140,6 +141,13 @@ public class Annuaire {
 	
 	public void rechercherRelais(int positionX,int positionY,String service)
 	{
-		
+		List<Relais> correspond = new ArrayList();
+		Relais traitement = null;
+		ListIterator iterator = annuaireRelais.listIterator();
+		while(iterator.hasNext())
+		{
+			traitement = (Relais) iterator.next();
+			correspond.add(iterator.next());
+		}
 	}
 } 
