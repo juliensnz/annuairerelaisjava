@@ -142,12 +142,13 @@ public class Annuaire {
 	public void rechercherRelais(int positionX,int positionY,String service)
 	{
 		List<Relais> correspond = new ArrayList();
-		Relais traitement = null;
-		ListIterator iterator = annuaireRelais.listIterator();
-		while(iterator.hasNext())
+		
+		for(Relais r : annuaireRelais)
 		{
-			traitement = (Relais) iterator.next();
-			correspond.add(iterator.next());
+			if(r.contientService(service))
+			{
+				correspond.add(r);
+			}
 		}
 	}
 } 

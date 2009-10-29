@@ -146,7 +146,17 @@ public class Relais {
 			 
 		}
 	}
-	
+	public boolean contientService(String entreeService)
+	{
+		for(String service : services)
+		{
+			if(service == entreeService)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	public void afficherRelais() {
 		System.out.println(this.nom + " :\nAbscisse : " + this.positionX + "\nOrdonnee : " + this.positionY );
 		afficherServices();
