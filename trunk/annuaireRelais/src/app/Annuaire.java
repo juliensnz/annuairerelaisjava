@@ -10,7 +10,7 @@ import exceptions.RelaisException;
 
 public class Annuaire {
 	
-	private List<Relais> annuaireRelais = null;
+	public List<Relais> annuaireRelais = null;
 	
 	public Annuaire() {
 		this.annuaireRelais = new LinkedList<Relais>();
