@@ -86,8 +86,8 @@ public class Annuaire {
 		
 		while(it.hasNext()) {
 			Relais r = it.next();
-			for(String s : r.getServices()) {
-				if(s == service)
+			for(Service s : r.getServices()) {
+				if(s.getNom() == service)
 					it.remove();
 			}
 		}
