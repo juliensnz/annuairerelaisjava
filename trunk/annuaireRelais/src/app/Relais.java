@@ -11,7 +11,7 @@ public class Relais {
 	private int positionX;
 	private int positionY;
 	private static int id = 0;
-	private List<String> services = new LinkedList<String>();
+	private List<Service> services = new LinkedList<Service>();
 	
 	public Relais() {
 		this.positionX = 0;
@@ -73,25 +73,36 @@ public class Relais {
 	}
 
 	public void ajouterService(String nomService) throws RelaisException{
-		if(this.services.contains(nomService) || nomService == ""){
-			throw new RelaisException("Le service existe déjà ou le nom est vide");
+		Service nouvService = new Service(nomService);
+		boolean contient = false;
+		for(Service s : this.services)
+		{
+			if(s.getNom() == nouvService.getNom() || nomService == ""){
+				contient = true;
+			
+				throw new RelaisException("Le service existe déjà ou le nom est vide");
+
+			}
 		}
-		else{
-			this.services.add(nomService);
+		if(!(contient)){
+			this.services.add(nouvService);
 		}
 	}
 	
 	public void ajouterService(List<String> l) throws RelaisException {
 		for(String s : l) {
-			if(this.services.contains(s))
-				throw new RelaisException("Un des services de la liste existe déjà");
-			else
-				this.services.add(s);
+			ajouterService(s);
 		}
 	}
 	
-	public void retirerService(String service) {
-			this.services.remove(service);
+	public void retirerService(String nomService) {
+		for(Service s : this.services) {
+			if(s.getNom() == nomService)
+			{
+				this.services.remove(s);
+			}
+		}
+			
 	}
 	
 	public double distance(int x, int y) {
@@ -148,9 +159,9 @@ public class Relais {
 	}
 	public boolean contientService(String entreeService)
 	{
-		for(String service : services)
+		for(Service s : this.services)
 		{
-			if(service == entreeService)
+			if(s.getNom() == entreeService)
 			{
 				return true;
 			}
@@ -164,8 +175,8 @@ public class Relais {
 	
 	public void afficherServices() {
 		System.out.println("Services disponnibles :");
-		for(String s : services)
-			System.out.println(s);
+		for(Service s : this.services)
+			System.out.println(s.getNom());
 		
 	}
 	public static int getId(){
@@ -184,8 +195,8 @@ public class Relais {
 		return this.positionY;
 	}
 	
-	public List<String> getServices() {
-		return this.services;
+	public List<Service> getServices() {
+		return (List<Service>) this.services;
 	}
 
 	
