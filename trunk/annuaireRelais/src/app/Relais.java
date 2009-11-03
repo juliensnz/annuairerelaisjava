@@ -11,7 +11,7 @@ public class Relais {
 	private int positionX;
 	private int positionY;
 	private static int id = 0;
-	private List<Service> services = new LinkedList<Service>();
+	public List<Service> services = new LinkedList<Service>();
 	
 	public Relais() {
 		this.positionX = 0;
