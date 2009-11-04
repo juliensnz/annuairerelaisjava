@@ -1,8 +1,7 @@
 package main;
 
-import exceptions.RelaisException;
-import app.Relais;
 import app.Annuaire;
+import exceptions.RelaisException;
 
 public class main {
 
@@ -38,8 +37,8 @@ public class main {
 	} catch (RelaisException e) {}
 	
 	
-	a.getRelais("Lyon").getServices("WC").ajouterPlage("02h13","18h55");
-	a.getRelais("Lyon").getServices("WC").suprimerPlage("07h00","13h55");
+	a.getRelais("Lyon").getServices("WC").ajouterPlage("2h2","23h13");
+	a.getRelais("Lyon").getServices("WC").supprimerPlage("07h00","13h55");
 	a.getRelais("Nantes").getServices("Pain").ajouterPlage("09h22","13h13");
 	a.getRelais("Paris").getServices("Pain").ajouterPlage("10h00","21h30");
 	
