@@ -12,7 +12,7 @@ public class Service {
 		this.nom = nom;
 		for(int i=0;i<1440;i++)
 		{
-			dispo[i]=false;
+			getDispo()[i]=false;
 		}
 	}
 
@@ -32,14 +32,14 @@ public class Service {
 			
 			for(int i = minDebut;i<minFin;i++)
 			{
-				dispo[i]=true;
+				getDispo()[i]=true;
 			}
 		}
 		else
 		{
 			for(int i = minFin;i<minDebut;i++)
 			{
-				dispo[i]=true;
+				getDispo()[i]=true;
 			}
 		}
 	}
@@ -55,35 +55,42 @@ public class Service {
 		{
 			for(int i = minDebut;i<minFin;i++)
 			{
-				dispo[i]=false;
+				getDispo()[i]=false;
 			}
 		}
 		else
 		{
 			for(int i = minFin;i<minDebut;i++)
 			{
-				dispo[i]=false;
+				getDispo()[i]=false;
 			}
 		}
 	}
 	
 	public void afficherPlage()
 	{
+		System.out.println(this.getPlage());
+	}
+	
+	public String getPlage()
+	{
 		boolean etat = false;
 		int ouvertureService = 0;
-		for(int i=0;i<dispo.length;i++)
+		String resultat = "";
+		for(int i=0;i<getDispo().length;i++)
 		{
-			if(dispo[i] == true && etat == false)
+			if(getDispo()[i] == true && etat == false)
 			{
 				ouvertureService = i;
 			}
-			else if(dispo[i] == false && etat == true)
+			else if(getDispo()[i] == false && etat == true)
 			{
-				System.out.println("de "+this.traduire(ouvertureService)+" a "+this.traduire(i));
+				resultat += " de "+this.traduire(ouvertureService)+" a "+this.traduire(i)+"";
 			}
-			
-			etat = dispo[i];
+			etat = getDispo()[i];
 		}
+		resultat += ".";
+		return resultat;
 	}
 	
 	public String traduire(int time)
@@ -120,5 +127,9 @@ public class Service {
 			i++;
 		}
 		return (heures*60+minutes);
+	}
+	
+	public boolean[] getDispo() {
+		return dispo;
 	}
 }

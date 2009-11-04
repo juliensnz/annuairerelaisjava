@@ -142,13 +142,49 @@ public class Annuaire {
 	public void rechercherRelais(int positionX,int positionY,String service)
 	{
 		List<Relais> correspond = new ArrayList();
-		
+		int heures = (int) (System.currentTimeMillis()/(1000*60*60))-349247;
+		int minutes = (int) (System.currentTimeMillis()/(1000*60))-20955420;
 		for(Relais r : annuaireRelais)
 		{
-			if(r.contientService(service))
+			
+			if(r.contientService(service) && r.getServices(service).getDispo()[heures*60+minutes])
 			{
 				correspond.add(r);
 			}
 		}
+		if(correspond.isEmpty())
+		{
+			System.out.println("Aucun relais ne correspond ˆ votre recherche ˆ cette heure-ci");
+		}
+		else
+		{
+			Relais plusProche = correspond.get(0);
+			for(Relais r : correspond)
+			{
+				if(r.distance(positionX,positionY) < plusProche.distance(positionX,positionY))
+				{
+					plusProche = r;
+				}
+			}
+			System.out.println("Le relais le plus proche qui propose le service \""+service+"\" est situŽ ˆ "+plusProche.getNom()+" (ˆ "+plusProche.distance(positionX,positionY)+"km d'ici).");
+		}
+		
+	}
+	
+	public Relais getRelais(int i)
+	{
+		return this.annuaireRelais.get(i);
+	}
+	
+	public Relais getRelais(String nom)
+	{
+		for(Relais r : this.annuaireRelais)
+		{
+			if(r.getNom() == nom)
+			{
+				return r;
+			}
+		}
+		return null;
 	}
 } 
