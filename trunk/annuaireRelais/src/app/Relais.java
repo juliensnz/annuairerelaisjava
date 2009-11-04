@@ -2,9 +2,8 @@ package app;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
-import exceptions.RelaisException;
 import java.util.Scanner;
+import exceptions.RelaisException;
 
 public class Relais {
 	private String nom;

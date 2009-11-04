@@ -1,6 +1,5 @@
 package app;
 
-import java.util.List;
 
 public class Service {
 	private String nom;
@@ -8,7 +7,7 @@ public class Service {
 	private boolean[] dispo = new boolean[1440];
 	public Service(String nom)
 	{
-		this.id++;
+		Service.id++;
 		this.nom = nom;
 		for(int i=0;i<1440;i++)
 		{
