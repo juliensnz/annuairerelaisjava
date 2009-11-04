@@ -106,7 +106,7 @@ public class Relais {
 	}
 	
 	public double distance(int x, int y) {
-		return Math.sqrt(Math.pow((this.positionX - x), 2) + Math.pow((this.positionY - y), 2));
+		return Math.round(Math.sqrt(Math.pow((this.positionX - x), 2) + Math.pow((this.positionY - y), 2))*100)/100;
 	}
 	
 	public boolean equivalentService(Relais r) {
@@ -176,7 +176,7 @@ public class Relais {
 	public void afficherServices() {
 		System.out.println("Services disponnibles :");
 		for(Service s : this.services)
-			System.out.println(s.getNom());
+			System.out.println("- "+s.getNom()+" | Horaires : "+s.getPlage()+"");
 		
 	}
 	public static int getId(){
@@ -198,6 +198,21 @@ public class Relais {
 	public List<Service> getServices() {
 		return (List<Service>) this.services;
 	}
-
+	public Service getServices(int i)
+	{
+		return this.services.get(i);
+	}
+	
+	public Service getServices(String nom)
+	{
+		for(Service s : this.services)
+		{
+			if(s.getNom() == nom)
+			{
+				return s;
+			}
+		}
+		return null;
+	}
 	
 }
