@@ -21,9 +21,9 @@ public class Service {
 		return nom;
 	}
 	
-	public void ajouterPlage()
+	public void ajouterPlage(String heureDebut, String heureFin)
 	{
-		
+		ajouterPlage(this.traduire(heureDebut),this.traduire(heureFin));
 	}
 	
 	public void ajouterPlage(int minDebut,int minFin)
@@ -97,5 +97,25 @@ public class Service {
 			resultatMinutes = "0"+minutes;
 		}
 		return ""+resultatHeures+"h"+resultatMinutes;
+	}
+	
+	public int traduire(String time)
+	{
+		int heures = 0;
+		int minutes = 0;
+		int i = 0;
+		while((int)time.charAt(i) >= (int)'0' && (int)time.charAt(i) < (int)'9')
+		{
+			heures += ((int)time.charAt(i)-(int)'0')*Math.pow(10, i);
+			i++;
+		}
+		i++;
+		while(i < time.length() && (int)time.charAt(i) >= (int)'0' && (int)time.charAt(i) < (int)'9')
+		{
+			minutes += (int)time.charAt(i)-(int)'0';
+			minutes *= 10;
+			i++;
+		}
+		return heures*60+minutes;
 	}
 }
