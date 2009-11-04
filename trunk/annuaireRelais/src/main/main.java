@@ -26,9 +26,9 @@ public class main {
 	try {
 		a.annuaireRelais.get(0).ajouterService("pain");
 	} catch (RelaisException e) {}
-	a.annuaireRelais.get(0).services.get(0).ajouterPlage("12h10","18h50");
-	//a.annuaireRelais.get(0).services.get(0).ajouterPlage(1200,1300);
-	//a.annuaireRelais.get(0).services.get(0).suprimerPlage(300,400);
+	a.annuaireRelais.get(0).services.get(0).ajouterPlage("12h13","18h55");
+	a.annuaireRelais.get(0).services.get(0).ajouterPlage("19h22","23h13");
+	a.annuaireRelais.get(0).services.get(0).suprimerPlage("20h00","21h30");
 	a.annuaireRelais.get(0).services.get(0).afficherPlage();
 	//a.editerUnRelais();
 	//a.afficherAnnuaire();

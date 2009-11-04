@@ -5,12 +5,11 @@ import java.util.List;
 public class Service {
 	private String nom;
 	private static int id = 0;
-	private boolean[] dispo ;
+	private boolean[] dispo = new boolean[1440];
 	public Service(String nom)
 	{
 		this.id++;
 		this.nom = nom;
-		dispo = new boolean[1440];
 		for(int i=0;i<1440;i++)
 		{
 			dispo[i]=false;
@@ -43,6 +42,11 @@ public class Service {
 				dispo[i]=true;
 			}
 		}
+	}
+	
+	public void suprimerPlage(String heureDebut,String heureFin)
+	{
+		suprimerPlage(this.traduire(heureDebut),this.traduire(heureFin));
 	}
 	
 	public void suprimerPlage(int minDebut,int minFin)
@@ -104,18 +108,17 @@ public class Service {
 		int heures = 0;
 		int minutes = 0;
 		int i = 0;
-		while((int)time.charAt(i) >= (int)'0' && (int)time.charAt(i) < (int)'9')
+		while((int)time.charAt(i) >= (int)'0' && (int)time.charAt(i) <= (int)'9')
 		{
-			heures += ((int)time.charAt(i)-(int)'0')*Math.pow(10, i);
+			heures += ((int)time.charAt(i)-(int)'0')*Math.pow(10, 1-i);
 			i++;
 		}
 		i++;
-		while(i < time.length() && (int)time.charAt(i) >= (int)'0' && (int)time.charAt(i) < (int)'9')
+		while(i < time.length() && (int)time.charAt(i) >= (int)'0' && (int)time.charAt(i) <= (int)'9')
 		{
-			minutes += (int)time.charAt(i)-(int)'0';
-			minutes *= 10;
+			minutes += ((int)time.charAt(i)-(int)'0')*Math.pow(10, 4-i);
 			i++;
 		}
-		return heures*60+minutes;
+		return (heures*60+minutes);
 	}
 }
