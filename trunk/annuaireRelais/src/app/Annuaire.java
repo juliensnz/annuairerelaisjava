@@ -141,7 +141,7 @@ public class Annuaire {
 	
 	public void rechercherRelais(int positionX,int positionY,String service)
 	{
-		List<Relais> correspond = new ArrayList();
+		List<Relais> correspond = new ArrayList<Relais>();
 		int heures = (int) (System.currentTimeMillis()/(1000*60*60))-349247;
 		int minutes = (int) (System.currentTimeMillis()/(1000*60))-20955420;
 		for(Relais r : annuaireRelais)
