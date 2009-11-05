@@ -74,18 +74,14 @@ public class Relais {
 	public void ajouterService(String nomService) throws RelaisException{
 		Service nouvService = new Service(nomService);
 		boolean contient = false;
-		for(Service s : this.services)
-		{
+		for(Service s : this.services) {
 			if(s.getNom() == nouvService.getNom() || nomService == ""){
 				contient = true;
-			
 				throw new RelaisException("Le service existe déjà ou le nom est vide");
-
 			}
 		}
-		if(!(contient)){
+		if(!(contient))
 			this.services.add(nouvService);
-		}
 	}
 	
 	public void ajouterService(List<String> l) throws RelaisException {
@@ -94,12 +90,10 @@ public class Relais {
 		}
 	}
 	
-	public void retirerService(String nomService) {
-		for(Service s : this.services) {
-			if(s.getNom() == nomService)
-			{
+	public void retirerService(Service s) {
+		for(Service si : this.services) {
+			if(si.getNom() == s.getNom())
 				this.services.remove(s);
-			}
 		}
 			
 	}
@@ -156,17 +150,15 @@ public class Relais {
 			 
 		}
 	}
-	public boolean contientService(String entreeService)
-	{
-		for(Service s : this.services)
-		{
-			if(s.getNom() == entreeService)
-			{
+	
+	public boolean contientService(String nom) {
+		for(Service s : this.services) {
+			if(s.getNom() == nom)
 				return true;
-			}
 		}
 		return false;
 	}
+	
 	public void afficherRelais() {
 		System.out.println(this.nom + " :\nAbscisse : " + this.positionX + "\nOrdonnee : " + this.positionY );
 		afficherServices();
@@ -176,9 +168,8 @@ public class Relais {
 		System.out.println("Services disponnibles :");
 		for(Service s : this.services)
 			System.out.println("- "+s.getNom()+" | Horaires : "+s.getPlage()+"");
-		
 	}
-	public static int getId(){
+	public static int getId() {
 		return Relais.id;
 	}
 	
@@ -197,21 +188,17 @@ public class Relais {
 	public List<Service> getServices() {
 		return (List<Service>) this.services;
 	}
-	public Service getServices(int i)
-	{
-		return this.services.get(i);
-	}
 	
-	public Service getServices(String nom)
-	{
-		for(Service s : this.services)
-		{
+	public Service getServices(int i) {
+		return this.services.get(i);
+	}//Service par index
+	
+	public Service getServices(String nom) {
+		for(Service s : this.services) {
 			if(s.getNom() == nom)
-			{
 				return s;
-			}
 		}
 		return null;
-	}
+	}//Services par nom
 	
 }
