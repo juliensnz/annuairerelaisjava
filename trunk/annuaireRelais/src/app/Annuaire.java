@@ -142,7 +142,6 @@ public class Annuaire {
 		List<Relais> correspond = new ArrayList<Relais>();
 		int heures = (int) (System.currentTimeMillis()/(1000*60*60)%60+1);//Initialisation du timestamp
 		int minutes = (int) (System.currentTimeMillis()/(1000*60)%60);//Initialisation du timestamp
-		
 		for(Relais r : annuaireRelais) {	
 			if(r.contientService(service) && r.getServices(service).getDispo()[heures*60+minutes]) {
 				correspond.add(r);
@@ -152,7 +151,7 @@ public class Annuaire {
 			System.out.println("Aucun relais ne correspond à votre recherche à cette heure-ci");
 			//Si la liste des relais proposant le service est vide...
 		else {
-			Relais plusProche = correspond.get(0);//Initialisation du relais le plus proche au premier de la liste par défaut
+			Relais plusProche = correspond.get(0);//Initiali sation du relais le plus proche au premier de la liste par défaut
 			for(Relais r : correspond) {
 				if(r.distance(positionX,positionY) < plusProche.distance(positionX,positionY))
 					plusProche = r;//Si on trouve un relai plus proche, on remplace
