@@ -140,8 +140,8 @@ public class Annuaire {
 	
 	public void rechercherRelais(int positionX,int positionY,String service) {
 		List<Relais> correspond = new ArrayList<Relais>();
-		int heures = (int) (System.currentTimeMillis()/(1000*60*60))-349247;//Initialisation du timestamp
-		int minutes = (int) (System.currentTimeMillis()/(1000*60))-20955420;//Initialisation du timestamp
+		int heures = (int) (System.currentTimeMillis()/(1000*60*60)%60+1);//Initialisation du timestamp
+		int minutes = (int) (System.currentTimeMillis()/(1000*60)%60);//Initialisation du timestamp
 		
 		for(Relais r : annuaireRelais) {	
 			if(r.contientService(service) && r.getServices(service).getDispo()[heures*60+minutes]) {
