@@ -1,6 +1,5 @@
 package app;
 
-import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -139,7 +138,7 @@ public class Annuaire {
 	}// Si tous les relais sont Žgaux, alors les annuaires sont Žgaux. (Comparer les plages horaires?)
 	
 	public void rechercherRelais(int positionX,int positionY,String service) {
-		List<Relais> correspond = new ArrayList<Relais>();
+		List<Relais> correspond = new LinkedList<Relais>();
 		int heures = (int) (System.currentTimeMillis()/(1000*60*60)%60+1);//Initialisation du timestamp
 		int minutes = (int) (System.currentTimeMillis()/(1000*60)%60);//Initialisation du timestamp
 		for(Relais r : annuaireRelais) {	
