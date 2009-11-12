@@ -26,11 +26,11 @@ public class main {
 	a.ajouterRelais(13, 14, "Paris");
 	try {
 		a.getRelais("Lyon").ajouterService("WC");
-		a.getRelais("Lyon").ajouterService("Snake");
+		a.getRelais("Lyon").ajouterService("Snacke");
 		a.getRelais("Nantes").ajouterService("Pain");
 		a.getRelais("Nantes").ajouterService("Essence");
 		a.getRelais("Paris").ajouterService("Pain");
-		a.getRelais("Paris").ajouterService("Snake");
+		a.getRelais("Paris").ajouterService("Snacke");
 		
 		
 		
@@ -38,7 +38,7 @@ public class main {
 	
 	
 	a.getRelais("Lyon").getServices("WC").ajouterPlage("2h2","23h13");
-	a.getRelais("Lyon").getServices("WC").supprimerPlage("07h00","13h55");
+	a.getRelais("Lyon").getServices("WC").supprimerPlage("7h00","13h55");
 	a.getRelais("Nantes").getServices("Pain").ajouterPlage("09h22","13h13");
 	a.getRelais("Paris").getServices("Pain").ajouterPlage("10h00","21h30");
 	
