@@ -127,6 +127,8 @@ public class Service {
 				afficherPlage();
 				this.editer();
 				break;
+			default :
+				System.out.println("Retour au menu précédent");
 		}
 	}
 	
