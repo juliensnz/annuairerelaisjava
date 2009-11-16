@@ -117,7 +117,7 @@ public class Relais {
 	{
 		System.out.println("Edition du relais : "+this.nom);
 		System.out.println("Que voulez vous éditer ?");
-		System.out.println("1. Nom\n2. Position x\n3. Position y\n4. Services");
+		System.out.println("1. Nom\n2. Position x\n3. Position y\n4. Services\n5. Quitter l'editeur de relais");
 		Scanner scan = new Scanner(System.in);
 		int choixEdit = 0;
 		do
@@ -130,22 +130,56 @@ public class Relais {
 			case 1:
 				System.out.print("Nom : ");
 				this.nom = scan.next();
+				this.editer();
 				break;
 			case 2:
 				System.out.print("X : ");
 				this.positionX = scan.nextInt();
+				this.editer();
 				break;
 			case 3:
 				System.out.print("Y : ");
 				this.positionY = scan.nextInt();
+				this.editer();
 				break;
 			case 4:
-				
-				System.out.print("Service à ajouter : ");
-			try{
-				this.ajouterService(scan.next());
-			} catch (RelaisException e) {}
+				System.out.println("1. Ajouter un service");
+				System.out.println("2. Editer un service");
+				System.out.print("Choix : ");
+				choixEdit = scan.nextInt();
+				switch(choixEdit)
+				{
+					case 1 :
+						try{
+							System.out.println("Ajouter un service : ");
+							System.out.print("Nom : ");
+							this.ajouterService(scan.next());
+						} catch (RelaisException e) {}
+						this.editer();
+						break;
+					case 2 :
+						if(this.getNbService() == 0)
+						{
+							System.out.println("Le relais ne propose pas de service pour l'instant. Vous devez créer un service avant de vouloir l'éditer");
+							this.editer();
+						}
+						else
+						{
+							System.out.println("Editer un service : ");
+							for(int i = 0;i<this.getNbService();i++)
+							{
+								System.out.println(i+1+". "+this.services.get(i).getNom());
+							}
+							System.out.print("Choix : ");
+							choixEdit = scan.nextInt();
+							this.services.get(choixEdit-1).editer();
+						}
+						this.editer();
+				}
+			
 				break;
+			case 5 :
+				
 			default:
 			 
 		}
@@ -200,5 +234,10 @@ public class Relais {
 		}
 		return null;
 	}//Services par nom
+	
+	public int getNbService()
+	{
+		return this.services.size();
+	}
 	
 }

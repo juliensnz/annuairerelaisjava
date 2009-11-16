@@ -1,5 +1,9 @@
 package app;
 
+import java.util.Scanner;
+
+import exceptions.RelaisException;
+
 public class Service {
 	private String nom;
 	private static int id = 0;
@@ -64,7 +68,7 @@ public class Service {
 		for(int i = 0; i < this.dispo.length; i++)
 		{
 			ouvertureService = (this.dispo[i] == true && etat == false) ? i : ouvertureService;
-			resultat += (this.dispo[i] == false && etat == true) ? (" de "+this.traduire(ouvertureService)+" a "+this.traduire(i)+"") : "";
+			resultat += (this.dispo[i] == false && etat == true) ? ("["+this.traduire(ouvertureService)+" : "+this.traduire(i)+"] ") : "";
 			etat = this.dispo[i];
 		}
 		resultat += ".";
@@ -76,7 +80,7 @@ public class Service {
 		int heures = time/60;
 		int minutes = time%60;
 		
-		return ((heures < 10) ? ("0"+heures) : (""+heures)) + "h" + ((minutes < 10) ? ("0"+minutes) : (""+minutes)) + "min";
+		return ((heures < 10) ? ("0"+heures) : (""+heures)) + "h" + ((minutes < 10) ? ("0"+minutes) : (""+minutes));
 	}//Transforme un temps en minutes (0 ˆ 1440) en XXhYYmin
 	
 	public int traduire(String time)
@@ -86,6 +90,45 @@ public class Service {
 		
 		return (heures * 60 + minutes);
 	}//Transforme un temps en heures minutes XXhYYmin en entier (0 ˆ 1440)
+	
+	
+	public void editer()
+	{
+		System.out.println("Editer un service :");
+		
+		System.out.println("1. Ajouter une plage horaire");
+		System.out.println("2. Supprimer une plage horaire");
+		System.out.println("3. Afficher les plages horaires");
+		System.out.print("Choix : ");
+		Scanner sc = new Scanner(System.in);
+		int entree = sc.nextInt();
+		switch(entree)
+		{
+			case 1 :
+					System.out.println("Ajouter une plage horaire : ");
+					System.out.print("De : ");
+					String debut = sc.next();
+					System.out.print("ˆ : ");
+					String fin = sc.next();
+					this.ajouterPlage(debut,fin);
+					this.editer();
+				break;
+			case 2 :
+				System.out.println("Supprimer une plage horaire : ");
+				System.out.print("De : ");
+				String debutSup = sc.next();
+				System.out.print("ˆ : ");
+				String finSup = sc.next();
+				this.supprimerPlage(debutSup,finSup);
+				this.editer();
+				break;
+			case 3 :
+				System.out.print("Plages d'ouverture : ");
+				afficherPlage();
+				this.editer();
+				break;
+		}
+	}
 	
 	public boolean[] getDispo() {
 		return dispo;

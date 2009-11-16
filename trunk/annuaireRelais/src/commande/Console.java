@@ -26,14 +26,35 @@ public class Console {
 			switch(entree) {
 				case 1 :
 					this.ajouterRelais();
+					System.out.println("Relais crŽŽ");
+					this.menuPrincipal();
 					break;
 				case 2 :
-					for(int i = 0;i<this.annuaire.getNbRelais();i++)
+					if(this.annuaire.getNbRelais() == 0)
 					{
-						System.out.println(i+1+". "+annuaire.getRelais(i));
+						System.out.println("l'annuaire est vide. Vous devez crŽer un relais avant de vouloir l'Žditer");
+						this.menuPrincipal();
+					}
+					else
+					{	
+						System.out.println("Quel relais souhaitez vous Žditer ?");
+						for(int i = 0;i<this.annuaire.getNbRelais();i++)
+						{
+							System.out.println(i+1+". "+annuaire.getRelais(i).getNom());
+						}
+						do{
+						System.out.print("Choix : ");
+						entree = sc.nextInt();
+						entree--;
+						}while(entree > 0 && entree < this.annuaire.getNbRelais());
+						System.out.println(entree);
+						this.annuaire.getRelais(entree).editer();
+						this.menuPrincipal();
+						
 					}
 					break;
 				default :
+					System.out.println(entree);
 			}
 		} while(!(entree == 1 || entree == 2));
 		
@@ -41,7 +62,15 @@ public class Console {
 
 	public void ajouterRelais()
 	{
-		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("CrŽation d'un relais :");
+		System.out.print("Nom : ");
+		String nom = sc.next();
+		System.out.print("Position X : ");
+		int positionX = sc.nextInt();
+		System.out.print("Position Y : ");
+		int positionY = sc.nextInt();
+		this.annuaire.ajouterRelais(positionX,positionY,nom);
 	}
 
 }
