@@ -1,5 +1,7 @@
 package main;
 
+import commande.Console;
+
 import app.Annuaire;
 import exceptions.RelaisException;
 
@@ -20,7 +22,7 @@ public class main {
 		}catch (RelaisException e){
 			System.out.println("Plantage");
 		};*/
-	Annuaire a = new Annuaire();
+	/*Annuaire a = new Annuaire();
 	a.ajouterRelais(12, 12, "Lyon");
 	a.ajouterRelais(14, 2, "Nantes");
 	a.ajouterRelais(13, 14, "Paris");
@@ -48,5 +50,8 @@ public class main {
 	//a.editerUnRelais();
 	//a.afficherAnnuaire();
 	//a.editerUnRelais();
+	 
+*/	
+	Console a = new Console();
 	}
 }
