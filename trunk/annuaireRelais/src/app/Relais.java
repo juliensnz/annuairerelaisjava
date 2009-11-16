@@ -120,11 +120,9 @@ public class Relais {
 		System.out.println("1. Nom\n2. Position x\n3. Position y\n4. Services\n5. Quitter l'editeur de relais");
 		Scanner scan = new Scanner(System.in);
 		int choixEdit = 0;
-		do
-		{
 			System.out.print("Choix : ");
 			choixEdit = scan.nextInt();
-		}while(!(choixEdit > 0 && choixEdit <= 4));
+		
 		switch(choixEdit)
 		{
 			case 1:
@@ -145,6 +143,7 @@ public class Relais {
 			case 4:
 				System.out.println("1. Ajouter un service");
 				System.out.println("2. Editer un service");
+				System.out.println("3. Quitter l'Žditeur de service");
 				System.out.print("Choix : ");
 				choixEdit = scan.nextInt();
 				switch(choixEdit)
@@ -175,13 +174,14 @@ public class Relais {
 							this.services.get(choixEdit-1).editer();
 						}
 						this.editer();
+					case 3 :
+						return;
+					default :
+						
 				}
-			
 				break;
-			case 5 :
-				
 			default:
-			 
+			 System.out.println("Retour au menu prŽcŽdent");
 		}
 	}
 	

@@ -146,4 +146,8 @@ public class Annuaire {
 	{
 		return this.annuaireRelais.size();
 	}
+	public List<Relais> getListRelais()
+	{
+		return this.annuaireRelais;
+	}
 } 
