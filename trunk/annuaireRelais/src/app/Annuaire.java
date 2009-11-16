@@ -142,25 +142,8 @@ public class Annuaire {
 		return null;
 	}//Getter Relais par nom
 	
-	public void remplirAleatoirement(int nbRelais) {
-		List<Relais> mesRelais = Relais.genererRelais(nbRelais);
-		
-		this.annuaireRelais.addAll(mesRelais);
-	}//Remplis un annuaire avec nbRelais relais aleatoirement generes (depourvus de service => ajouter une banque de service?)
-	
-	/*public boolean egalA(Annuaire a) {
-		boolean resultat = true;
-		boolean temp = false;
-		for(int i = 0; i < this.annuaireRelais.size(); i++) {
-			for(int j = i; j < a.annuaireRelais.size(); j++) {
-				if(this.annuaireRelais.get(i).egalA(a.annuaireRelais.get(j)) && this.annuaireRelais.get(i).equivalentService(a.annuaireRelais.get(j)))
-					temp = true;
-			}
-			if(!temp) {
-				resultat = false;
-				break;
-			}
-		}
-		return resultat;
-	}// Si tous les relais sont Žgaux, alors les annuaires sont Žgaux. (Comparer les plages horaires?)*/
+	public int getNbRelais()
+	{
+		return this.annuaireRelais.size();
+	}
 } 
