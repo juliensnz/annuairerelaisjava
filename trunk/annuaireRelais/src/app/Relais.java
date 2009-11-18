@@ -20,7 +20,7 @@ public class Relais {
 	}//Constructeur de base.
 
 	public Relais(int x, int y, String nom) throws RelaisException {
-		if (x <= 0 || y <= 0)
+		if (x < 0 || y < 0)
 			throw new RelaisException("La position d'un relais ne peut tre nŽgative !");
 		else if(nom == "")
 			throw new RelaisException("Le nom d'un relais ne peut pas tre vide !");
@@ -129,7 +129,7 @@ public class Relais {
 		{
 			case 1:
 				System.out.print("Nom : ");
-				this.nom = scan.next();
+				this.nom = scan.nextLine();
 				this.editer();
 				break;
 			case 2:
@@ -154,23 +154,20 @@ public class Relais {
 						try{
 							System.out.println("Ajouter un service : ");
 							System.out.print("Nom : ");
-							this.ajouterService(scan.next());
+							this.ajouterService(scan.nextLine());
 						} catch (RelaisException e) {}
 						this.editer();
 						break;
 					case 2 :
-						if(this.getNbService() == 0)
-						{
+						if(this.getNbService() == 0) {
 							System.out.println("Le relais ne propose pas de service pour l'instant. Vous devez crŽer un service avant de pouvoir l'Žditer");
 							this.editer();
 						}
-						else
-						{
+						else {
 							System.out.println("Editer un service : ");
 							for(int i = 0;i<this.getNbService();i++)
-							{
 								System.out.println(i+1+". "+this.services.get(i).getNom());
-							}
+							
 							System.out.print("Choix : ");
 							choixEdit = scan.nextInt();
 							this.services.get(choixEdit-1).editer();
@@ -178,10 +175,14 @@ public class Relais {
 						this.editer();
 						break;
 					case 3 :
-						return;
+						this.editer();
+						break;
 					default :
 						break;		
 				}
+				break;
+			case 5 :
+				System.out.println("Retour au menu prŽcŽdent");
 				break;
 			default:
 			 System.out.println("Retour au menu prŽcŽdent");

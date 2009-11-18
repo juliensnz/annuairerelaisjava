@@ -83,13 +83,13 @@ public class Service {
 		System.out.println("1. Ajouter une plage horaire");
 		System.out.println("2. Supprimer une plage horaire");
 		System.out.println("3. Afficher les plages horaires");
+		System.out.println("4. Quitter l'éditeur de services");
 		System.out.print("Choix : ");
 		Scanner sc = new Scanner(System.in);
 		int entree = sc.nextInt();
-		switch(entree)
-		{
+		switch(entree) {
 			case 1 :
-					System.out.println("Ajouter une plage horaire : ");
+					System.out.println("Ajouter une plage horaire (XXhYYmin) : ");
 					System.out.print("De : ");
 					String debut = sc.next();
 					System.out.print("à : ");
@@ -98,7 +98,7 @@ public class Service {
 					this.editer();
 				break;
 			case 2 :
-				System.out.println("Supprimer une plage horaire : ");
+				System.out.println("Supprimer une plage horaire (XXhYYmin) : ");
 				System.out.print("De : ");
 				String debutSup = sc.next();
 				System.out.print("à : ");
@@ -110,6 +110,9 @@ public class Service {
 				System.out.print("Plages d'ouverture : ");
 				afficherPlage();
 				this.editer();
+				break;
+			case 4 :
+				System.out.println("Retour au menu précédent");
 				break;
 			default :
 				System.out.println("Retour au menu précédent");

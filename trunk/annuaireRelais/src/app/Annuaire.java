@@ -142,8 +142,7 @@ public class Annuaire {
 		return null;
 	}//Getter Relais par nom
 	
-	public int getNbRelais()
-	{
+	public int getNbRelais() {
 		return this.annuaireRelais.size();
 	}
 	public List<Relais> getListRelais()
