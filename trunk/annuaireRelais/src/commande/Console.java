@@ -3,7 +3,6 @@ package commande;
 import java.util.Scanner;
 import app.Annuaire;
 import app.Relais;
-import app.Service;
 import exceptions.ConsoleException;
 
 public class Console {
@@ -63,31 +62,28 @@ public class Console {
 					System.out.println("1. Trouver les relais à proximité.");
 					System.out.println("2. Trouver un service.");
 					int choix = getInt();
-					switch(choix)
-					{
-					case 1 :
-						int i = 0;
-						 for(Relais r : this.annuaire.getListRelais())
-						 {
-							 if(r.distance(positionX, positionY) < 5)
-							 {
-								 System.out.println("- "+r.getNom()+" Service : ");
-								 for(Service s : r.getServices())
-								 {
-									 System.out.println("    "+s.getNom()+" Ouverture : "+s.getPlage());
+					switch(choix) {
+						case 1 :
+							int i = 0;
+							 for(Relais r : this.annuaire.getListRelais()) {
+								 if(r.distance(positionX, positionY) < 5) {
+									 System.out.println("- "+r.getNom()+" Service : ");
+									 r.afficherServices();
 								 }
+								 i++;
 							 }
-							 i++;
-						 }
+							 break;
+						case 2 :
+							System.out.println("Trouver le relais le plus proche proposant un service");
+							System.out.print("Nom du service : ");
+							String nom = getString();
+							this.annuaire.rechercherRelais(positionX,positionY,nom);
+							break;
 					}
-					System.out.println("Nom :");
-					String nom = getString();
-					this.annuaire.rechercherRelais(positionX,positionY,nom);
 					
 					this.menuPrincipal();
 					break;
 				default :
-					System.out.println(entree);
 			}
 		} while(!(entree == 1 || entree == 2));
 		
@@ -97,8 +93,8 @@ public class Console {
 	{
 		System.out.println("Création d'un relais :");
 		String nom = null;
-			System.out.print("Nom : ");
-		    nom = getString();
+		System.out.print("Nom : ");
+		nom = getString();
 		
 		System.out.print("Position X : ");
 		int positionX = 0;

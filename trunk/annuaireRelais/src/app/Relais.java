@@ -124,7 +124,7 @@ public class Relais {
 		
 		System.out.print("Choix : ");
 		choixEdit = scan.nextInt();
-		
+		scan.nextLine();
 		switch(choixEdit)
 		{
 			case 1:
@@ -148,13 +148,15 @@ public class Relais {
 				System.out.println("3. Quitter l'Žditeur de service");
 				System.out.print("Choix : ");
 				choixEdit = scan.nextInt();
-				switch(choixEdit)
-				{
+				switch(choixEdit) {
 					case 1 :
-						try{
-							System.out.println("Ajouter un service : ");
-							System.out.print("Nom : ");
-							this.ajouterService(scan.nextLine());
+						System.out.println("Ajouter un service : ");
+						System.out.print("Nom : ");
+						scan.nextLine();
+						String choixServ = scan.nextLine();
+						System.out.println("choixServ : " + choixServ);
+						try {
+							this.ajouterService(choixServ);
 						} catch (RelaisException e) {}
 						this.editer();
 						break;
