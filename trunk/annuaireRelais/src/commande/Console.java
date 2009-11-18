@@ -28,7 +28,7 @@ public class Console {
 			switch(entree) {
 				case 1 :
 					this.ajouterRelais();
-					System.out.println("Relais créé");
+					System.out.println("Relais créé \n");
 					this.menuPrincipal();
 					break;
 				case 2 :
@@ -36,20 +36,19 @@ public class Console {
 						System.out.println("L'annuaire est vide. Vous devez créer un relais avant de pouvoir l'éditer");
 						this.menuPrincipal();
 					}
-					else
-					{	
+					else {	
 						System.out.println("Quel relais souhaitez vous éditer ?");
-						for(int i = 0;i<this.annuaire.getNbRelais();i++)
-						{
+						for(int i = 0;i<this.annuaire.getNbRelais();i++) {
 							System.out.println(i+1+". "+annuaire.getRelais(i).getNom());
 						}
-						do{
+						
+						do {
 						System.out.print("Choix : ");
 						entree = getInt();
+						}while(entree >= 0 && entree > this.annuaire.getNbRelais());
 						entree--;
-						}while(entree >= 0 && entree < this.annuaire.getNbRelais());
-						System.out.println(entree);
 						this.annuaire.getRelais(entree).editer();
+						
 						this.menuPrincipal();
 						
 					}
@@ -103,8 +102,7 @@ public class Console {
 		
 		System.out.print("Position X : ");
 		int positionX = 0;
-		
-		 positionX = getInt();
+		positionX = getInt();
 		
 		System.out.print("Position Y : ");
 		int positionY = getInt();
