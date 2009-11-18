@@ -54,6 +54,7 @@ public class main {
 	//a.editerUnRelais();
 	 
 */	
+	@SuppressWarnings("unused")
 	Console a = new Console();
 	}
 }
