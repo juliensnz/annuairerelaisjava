@@ -1,5 +1,6 @@
 package exceptions;
 
+@SuppressWarnings("serial")
 public class RelaisException extends Exception{
 	public RelaisException()
 	{
