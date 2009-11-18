@@ -32,9 +32,8 @@ public class Console {
 					this.menuPrincipal();
 					break;
 				case 2 :
-					if(this.annuaire.getNbRelais() == 0)
-					{
-						System.out.println("l'annuaire est vide. Vous devez créer un relais avant de vouloir l'éditer");
+					if(this.annuaire.getNbRelais() == 0) {
+						System.out.println("L'annuaire est vide. Vous devez créer un relais avant de pouvoir l'éditer");
 						this.menuPrincipal();
 					}
 					else
@@ -112,10 +111,9 @@ public class Console {
 		this.annuaire.ajouterRelais(positionX,positionY,nom);
 	}
 	
-	public String getString()
-	{
+	public String getString() {
 		Scanner sc = new Scanner(System.in);
-		String entree = sc.next();
+		String entree = sc.nextLine();
 		return entree;
 	}
 	
@@ -124,16 +122,14 @@ public class Console {
 		Scanner sc = new Scanner(System.in);
 		int entree = 0;
 		try{
-		entree = sc.nextInt();
-		}catch(java.util.InputMismatchException e)
-		{
+			entree = sc.nextInt();
+		}catch(java.util.InputMismatchException e) {
 			System.out.print("Veuillez entrer un nombre valide : ");
 			return this.getInt();
 		}
 		return entree;
 	}
-	public String getHeure()
-	{
+	public String getHeure() {
 		Scanner sc = new Scanner(System.in);
 		String entree ;
 		entree = sc.next();
