@@ -1,13 +1,10 @@
 package commande;
 
-import java.util.ListIterator;
 import java.util.Scanner;
-
-import exceptions.ConsoleException;
-
 import app.Annuaire;
 import app.Relais;
 import app.Service;
+import exceptions.ConsoleException;
 
 public class Console {
 	Annuaire annuaire = null;
