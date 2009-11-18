@@ -2,33 +2,25 @@ package app;
 
 import java.util.Scanner;
 
-import exceptions.RelaisException;
-
 public class Service {
 	private String nom;
 	private static int id = 0;
 	private boolean[] dispo = new boolean[1440];
 	
-	public Service(String nom)
-	{
+	public Service(String nom) {
 		Service.id++;
 		this.nom = nom;
 		for(int i=0;i<1440;i++)
-		{
 			this.dispo[i]=false;
-		}
 	}//Constructeur
 	
 
-	public void ajouterPlage(int minDebut,int minFin)
-	{
+	public void ajouterPlage(int minDebut,int minFin) {
 		int min = (minDebut <= minFin) ? minDebut : minFin;
 		int max = (minDebut <= minFin) ? minFin : minDebut;
 		
 		for(int i = min; i < max; i++)
-		{
 			this.dispo[i]=true;
-		}
 	}//On ajoute une plage horaire, valeurs controlŽes lors de la saisie, valeurs en minutes de 0 ˆ 1440.
 	
 	public void ajouterPlage(String heureDebut, String heureFin)
@@ -39,61 +31,53 @@ public class Service {
 	
 
 	
-	public void supprimerPlage(int minDebut,int minFin)
-	{
+	public void supprimerPlage(int minDebut,int minFin) {
 		int min = (minDebut <= minFin) ? minDebut : minFin;
 		int max = (minDebut <= minFin) ? minFin : minDebut;
 		
 		for(int i = min; i < max; i++)
-		{
 			this.dispo[i]=false;
-		}
 	}//Supprimer une plage horaire, valeurs en minutes de 0 ˆ 1440
 	
-	public void supprimerPlage(String heureDebut,String heureFin)
-	{
+	public void supprimerPlage(String heureDebut,String heureFin){
 		supprimerPlage(this.traduire(heureDebut),this.traduire(heureFin));
 	}//Suppression d'une plage avec des valeurs formatŽes en XXhYYmin
 	
-	public void afficherPlage()
-	{
+	public void afficherPlage(){
 		System.out.println(this.getPlage());
 	}
 	
-	public String getPlage()
-	{
+	public String getPlage() {
 		boolean etat = false;
 		int ouvertureService = 0;
 		String resultat = "";
-		for(int i = 0; i < this.dispo.length; i++)
-		{
-			ouvertureService = (this.dispo[i] == true && etat == false) ? i : ouvertureService;
+		
+		for(int i = 0; i < this.dispo.length; i++) {
+			ouvertureService = (this.dispo[i] == true && etat == false) ? i : ouvertureService; //Prend pour valeur vrai au dŽbut d'un plage horaire.
 			resultat += (this.dispo[i] == false && etat == true) ? ("["+this.traduire(ouvertureService)+" : "+this.traduire(i)+"] ") : "";
+			//Se dŽclenche a la fin d'une plage.
 			etat = this.dispo[i];
 		}
 		resultat += ".";
 		return resultat;
 	}// Retourne les horaires d'ouverture d'un service sous forme de chaine.
 	
-	public String traduire(int time)
-	{
+	public String traduire(int time) {
 		int heures = time/60;
 		int minutes = time%60;
 		
 		return ((heures < 10) ? ("0"+heures) : (""+heures)) + "h" + ((minutes < 10) ? ("0"+minutes) : (""+minutes));
 	}//Transforme un temps en minutes (0 ˆ 1440) en XXhYYmin
 	
-	public int traduire(String time)
-	{
+	public int traduire(String time) {
 		int heures = Integer.parseInt(time.substring(0, time.indexOf("h")));
-		int minutes = Integer.parseInt(time.substring(time.indexOf("h") + 1, time.length()));
+		int minutes = Integer.parseInt(time.substring(time.indexOf("h") + 1, time.indexOf("h") + 3));
 		
 		return (heures * 60 + minutes);
 	}//Transforme un temps en heures minutes XXhYYmin en entier (0 ˆ 1440)
 	
 	
-	public void editer()
-	{
+	public void editer() {
 		System.out.println("Editer un service :");
 		
 		System.out.println("1. Ajouter une plage horaire");
@@ -130,7 +114,7 @@ public class Service {
 			default :
 				System.out.println("Retour au menu prŽcŽdent");
 		}
-	}
+	}//Editer un service.
 	
 	public boolean[] getDispo() {
 		return dispo;
