@@ -3,13 +3,15 @@ package commande;
 import java.util.ListIterator;
 import java.util.Scanner;
 
+import exceptions.ConsoleException;
+
 import app.Annuaire;
 import app.Relais;
 import app.Service;
 
 public class Console {
 	Annuaire annuaire = null;
-	public Console()
+	public Console() throws ConsoleException
 	{
 		System.out.println("Bienvenue dans notre programme d'annuaire");
 		System.out.println("Que voulez vous faire ?");
@@ -22,11 +24,10 @@ public class Console {
 		System.out.println("1. Ajouter un relais");
 		System.out.println("2. Editer un relais");
 		System.out.println("3. Rechercher un service");
-		Scanner sc = new Scanner(System.in);
 		int entree;
 		do{
 			System.out.print("Choix : ");
-			entree = sc.nextInt();
+			entree = getInt();
 			switch(entree) {
 				case 1 :
 					this.ajouterRelais();
@@ -48,7 +49,7 @@ public class Console {
 						}
 						do{
 						System.out.print("Choix : ");
-						entree = sc.nextInt();
+						entree = getInt();
 						entree--;
 						}while(entree >= 0 && entree < this.annuaire.getNbRelais());
 						System.out.println(entree);
@@ -60,13 +61,13 @@ public class Console {
 				case 3 :
 					System.out.println("Ou vous trouvez vous ?");
 					System.out.print("Position X :");
-					int positionX = sc.nextInt();
+					int positionX = getInt();
 					System.out.print("Position Y :");
-					int positionY = sc.nextInt();
+					int positionY = getInt();
 					System.out.println("Que voulez vous faire ?");
 					System.out.println("1. Trouver les relais ˆ proximit.");
 					System.out.println("2. Trouver un service.");
-					int choix = sc.nextInt();
+					int choix = getInt();
 					switch(choix)
 					{
 					case 1 :
@@ -85,7 +86,7 @@ public class Console {
 						 }
 					}
 					System.out.println("Nom :");
-					String nom = sc.next();
+					String nom = getString();
 					this.annuaire.rechercherRelais(positionX,positionY,nom);
 					
 					this.menuPrincipal();
@@ -99,15 +100,47 @@ public class Console {
 
 	public void ajouterRelais()
 	{
-		Scanner sc = new Scanner(System.in);
 		System.out.println("Cration d'un relais :");
-		System.out.print("Nom : ");
-		String nom = sc.next();
+		String nom = null;
+			System.out.print("Nom : ");
+		    nom = getString();
+		
 		System.out.print("Position X : ");
-		int positionX = sc.nextInt();
+		int positionX = 0;
+		
+		 positionX = getInt();
+		
 		System.out.print("Position Y : ");
-		int positionY = sc.nextInt();
+		int positionY = getInt();
 		this.annuaire.ajouterRelais(positionX,positionY,nom);
+	}
+	
+	public String getString()
+	{
+		Scanner sc = new Scanner(System.in);
+		String entree = sc.next();
+		return entree;
+	}
+	
+	public int getInt()
+	{
+		Scanner sc = new Scanner(System.in);
+		int entree = 0;
+		try{
+		entree = sc.nextInt();
+		}catch(java.util.InputMismatchException e)
+		{
+			System.out.print("Veuillez entrer un nombre valide : ");
+			return this.getInt();
+		}
+		return entree;
+	}
+	public String getHeure()
+	{
+		Scanner sc = new Scanner(System.in);
+		String entree ;
+		entree = sc.next();
+		return entree;
 	}
 
 }
