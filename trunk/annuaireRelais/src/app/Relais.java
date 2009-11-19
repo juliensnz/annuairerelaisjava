@@ -145,7 +145,8 @@ public class Relais {
 			case 4:
 				System.out.println("1. Ajouter un service");
 				System.out.println("2. Editer un service");
-				System.out.println("3. Quitter l'éditeur de service");
+				System.out.println("3. Supprimer un service");
+				System.out.println("4. Quitter l'éditeur de service");
 				System.out.print("Choix : ");
 				choixEdit = scan.nextInt();
 				switch(choixEdit) {
@@ -177,6 +178,22 @@ public class Relais {
 						this.editer();
 						break;
 					case 3 :
+						if(this.getNbService() == 0) {
+							System.out.println("Le relais ne propose pas de service pour l'instant. Vous devez créer des services avant de pouvoir en supprimer");
+							this.editer();
+						}
+						else {
+							System.out.println("Supprimer un service : ");
+							for(int i = 0;i<this.getNbService();i++)
+								System.out.println(i+1+". "+this.services.get(i).getNom());
+							
+							System.out.print("Choix : ");
+							choixEdit = scan.nextInt();
+							this.retirerService(this.services.get(choixEdit-1));
+						}
+						this.editer();
+						break;
+					case 4 :
 						this.editer();
 						break;
 					default :
