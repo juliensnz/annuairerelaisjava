@@ -195,7 +195,7 @@ public class Relais {
 		for(Service s : this.services) {
 			System.out.println("Nom get : " + s.getNom());
 			System.out.println("Nom : " + nom);
-			if(s.getNom() == nom)
+			if(s.getNom().equals(nom))
 				return true;
 		}
 		return false;
@@ -238,7 +238,7 @@ public class Relais {
 	
 	public Service getServices(String nom) {
 		for(Service s : this.services) {
-			if(s.getNom() == nom)
+			if(s.getNom().equals(nom))
 				return s;
 		}
 		return null;
