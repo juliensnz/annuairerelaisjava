@@ -192,9 +192,9 @@ public class Relais {
 	}
 	
 	public boolean contientService(String nom) {
-		System.out.println("Nom : " + nom);
 		for(Service s : this.services) {
-			System.out.println("Nom : " + s.getNom());
+			System.out.println("Nom get : " + s.getNom());
+			System.out.println("Nom : " + nom);
 			if(s.getNom() == nom)
 				return true;
 		}
