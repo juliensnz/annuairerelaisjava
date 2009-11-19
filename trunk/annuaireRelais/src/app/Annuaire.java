@@ -112,7 +112,12 @@ public class Annuaire {
 		int heures = (int) (System.currentTimeMillis()/(1000*60*60)%24 + 1);//Initialisation du timestamp
 		int minutes = (int) (System.currentTimeMillis()/(1000*60)%60);//Initialisation du timestamp
 		
-		for(Relais r : annuaireRelais) {	
+		System.out.println(heures+"h"+minutes+"min");
+		
+		for(Relais r : this.annuaireRelais) {
+			r.afficherServices();
+			System.out.println("Contient |"+ service+ "| : " + r.contientService(service));
+			//System.out.println(service + "dispo : "+ r.getServices(service).getDispo()[heures*60+minutes]);
 			if(r.contientService(service) && r.getServices(service).getDispo()[heures*60+minutes]) {
 				correspond.add(r);
 			}//On trouve la liste des relais proposant le service.

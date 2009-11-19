@@ -120,7 +120,7 @@ public class Service {
 	}//Editer un service.
 	
 	public boolean[] getDispo() {
-		return dispo;
+		return this.dispo;
 	}
 	
 	public String getNom() {

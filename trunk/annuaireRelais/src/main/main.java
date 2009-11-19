@@ -2,17 +2,13 @@ package main;
 
 import commande.Console;
 
-import app.Annuaire;
-import exceptions.ConsoleException;
-import exceptions.RelaisException;
-
 public class main {
 
 	/**
 	 * @param args
 	 * @throws ConsoleException 
 	 */
-	public static void main(String[] args) throws ConsoleException {
+	public static void main(String[] args) {
 		/*Relais test = null;
 		try
 		{

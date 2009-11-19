@@ -3,20 +3,17 @@ package commande;
 import java.util.Scanner;
 import app.Annuaire;
 import app.Relais;
-import exceptions.ConsoleException;
 
 public class Console {
 	Annuaire annuaire = null;
-	public Console() throws ConsoleException
-	{
+	public Console() {
 		System.out.println("Bienvenue dans notre programme d'annuaire");
 		System.out.println("Que voulez vous faire ?");
 		annuaire = new Annuaire();
 		menuPrincipal();
 	}
 	
-	public void menuPrincipal()
-	{
+	public void menuPrincipal() {
 		System.out.println("1. Ajouter un relais");
 		System.out.println("2. Editer un relais");
 		System.out.println("3. Rechercher un service");
@@ -53,35 +50,7 @@ public class Console {
 					}
 					break;
 				case 3 :
-					System.out.println("Ou vous trouvez vous ?");
-					System.out.print("Position X :");
-					int positionX = getInt();
-					System.out.print("Position Y :");
-					int positionY = getInt();
-					System.out.println("Que voulez vous faire ?");
-					System.out.println("1. Trouver les relais à proximité.");
-					System.out.println("2. Trouver un service.");
-					int choix = getInt();
-					switch(choix) {
-						case 1 :
-							int i = 0;
-							 for(Relais r : this.annuaire.getListRelais()) {
-								 if(r.distance(positionX, positionY) < 5) {
-									 System.out.println("- "+r.getNom()+" Service : ");
-									 r.afficherServices();
-								 }
-								 i++;
-							 }
-							 break;
-						case 2 :
-							System.out.println("Trouver le relais le plus proche proposant un service");
-							System.out.print("Nom du service : ");
-							String nom = getString();
-							this.annuaire.rechercherRelais(positionX,positionY,nom);
-							break;
-					}
-					
-					this.menuPrincipal();
+					this.trouverService();
 					break;
 				default :
 			}
@@ -103,6 +72,47 @@ public class Console {
 		System.out.print("Position Y : ");
 		int positionY = getInt();
 		this.annuaire.ajouterRelais(positionX,positionY,nom);
+	}
+	
+	public void trouverService()
+	{
+		System.out.println("Ou vous trouvez vous ?");
+		System.out.print("Position X :");
+		int positionX = getInt();
+		System.out.print("Position Y :");
+		int positionY = getInt();
+		System.out.println("Que voulez vous faire ?");
+		System.out.println("1. Trouver les relais à proximité.");
+		System.out.println("2. Trouver un service.");
+		int choix = getInt();
+		switch(choix) {
+			case 1 :
+				int i = 0;
+				int cpt = 0;
+				 for(Relais r : this.annuaire.getListRelais()) {
+					 if(r.distance(positionX, positionY) < 5) {
+						 System.out.print("- "+r.getNom()+" , ");
+						 r.afficherServices();
+						 cpt++;
+					 }
+					 i++;
+				 }
+				 if(cpt == 0)
+				 {
+					 System.out.println("Aucun relais ne se trouve à moins de 5 km\nRetour au menu principal");
+				 }
+				 break;
+			case 2 :
+				System.out.println("Trouver le relais le plus proche proposant un service");
+				System.out.print("Nom du service : ");
+				String nom;
+				nom = getString();
+				this.annuaire.rechercherRelais(positionX,positionY,nom);
+				break;
+		}
+		
+		this.menuPrincipal();
+		
 	}
 	
 	public String getString() {
@@ -129,5 +139,7 @@ public class Console {
 		entree = sc.next();
 		return entree;
 	}
+	
+	
 
 }
