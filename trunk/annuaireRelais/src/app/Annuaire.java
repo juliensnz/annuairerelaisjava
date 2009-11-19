@@ -115,9 +115,6 @@ public class Annuaire {
 		System.out.println(heures+"h"+minutes+"min");
 		
 		for(Relais r : this.annuaireRelais) {
-			r.afficherServices();
-			System.out.println("Contient |"+ service+ "| : " + r.contientService(service));
-			//System.out.println(service + "dispo : "+ r.getServices(service).getDispo()[heures*60+minutes]);
 			if(r.contientService(service) && r.getServices(service).getDispo()[heures*60+minutes]) {
 				correspond.add(r);
 			}//On trouve la liste des relais proposant le service.

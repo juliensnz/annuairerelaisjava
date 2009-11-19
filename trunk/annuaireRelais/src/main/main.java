@@ -1,6 +1,7 @@
 package main;
 
 import commande.Console;
+import exceptions.RelaisException;
 
 public class main {
 
@@ -50,7 +51,12 @@ public class main {
 	//a.editerUnRelais();
 	 
 */	
-	@SuppressWarnings("unused")
-	Console a = new Console();
+	try {
+		@SuppressWarnings("unused")
+		Console a = new Console();
+	} catch (RelaisException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	}
 }
