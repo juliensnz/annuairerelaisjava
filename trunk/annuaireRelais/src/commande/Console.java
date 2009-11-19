@@ -40,6 +40,7 @@ public class Console {
 	public void menuPrincipal() {
 		System.out.println("1. Ajouter un relais");
 		System.out.println("2. Editer un relais");
+		//System.out.println("3. Supprimer un relais");
 		System.out.println("3. Rechercher un service");
 		int entree;
 		do{
@@ -73,7 +74,29 @@ public class Console {
 						
 					}
 					break;
-				case 3 :
+				/*case 3 :
+					if(this.annuaire.getNbRelais() == 0) {
+						System.out.println("L'annuaire est vide. Vous devez créer des relais avant de pouvoir en supprimer");
+						this.menuPrincipal();
+					}
+					else {	
+						System.out.println("Quel relais souhaitez vous éditer ?");
+						for(int i = 0;i<this.annuaire.getNbRelais();i++) {
+							System.out.println(i+1+". "+annuaire.getRelais(i).getNom());
+						}
+						
+						do {
+						System.out.print("Choix : ");
+						entree = getInt();
+						}while(entree >= 0 && entree > this.annuaire.getNbRelais());
+						entree--;
+						this.annuaire.getRelais(entree).editer();
+						
+						this.menuPrincipal();
+						
+					}
+					break;*/
+				case 4 :
 					this.trouverService();
 					break;
 				default :

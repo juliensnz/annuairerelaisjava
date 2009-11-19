@@ -97,8 +97,10 @@ public class Relais {
 	
 	public void retirerService(Service s) {
 		for(Service si : this.services) {
-			if(si.getNom().equals(s.getNom()))
-				this.services.remove(s);
+			if(si.getNom().equals(s.getNom())){
+				this.services.remove(si);
+				return;
+			}
 		}	
 	}//Retire un service d'un relais (Žventuellement plusieurs).
 	
