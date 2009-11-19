@@ -1,15 +1,40 @@
 package commande;
 
 import java.util.Scanner;
+
+import exceptions.RelaisException;
 import app.Annuaire;
 import app.Relais;
 
 public class Console {
 	Annuaire annuaire = null;
-	public Console() {
+	public Console() throws RelaisException {
 		System.out.println("Bienvenue dans notre programme d'annuaire");
 		System.out.println("Que voulez vous faire ?");
 		annuaire = new Annuaire();
+		annuaire.ajouterRelais(12, 6, "Nantes");
+		annuaire.ajouterRelais(2, 20, "Lyon");
+		annuaire.ajouterRelais(5, 5, "Paris");
+		annuaire.getRelais("Nantes").ajouterService("Pain");
+		annuaire.getRelais("Nantes").getServices("Pain").ajouterPlage("08h00", "18h00");
+		annuaire.getRelais("Nantes").ajouterService("Pizza");
+		annuaire.getRelais("Nantes").getServices("Pizza").ajouterPlage("12h00", "19h00");
+		annuaire.getRelais("Nantes").ajouterService("WC");
+		annuaire.getRelais("Nantes").getServices("WC").ajouterPlage("06h00", "22h00");
+		
+		annuaire.getRelais("Lyon").ajouterService("Pain");
+		annuaire.getRelais("Lyon").getServices("Pain").ajouterPlage("04h00", "12h00");
+		annuaire.getRelais("Lyon").ajouterService("Essence");
+		annuaire.getRelais("Lyon").getServices("Essence").ajouterPlage("11h00", "17h00");
+		annuaire.getRelais("Lyon").ajouterService("WC");
+		annuaire.getRelais("Lyon").getServices("WC").ajouterPlage("04h00", "23h00");
+		
+		annuaire.getRelais("Paris").ajouterService("Snack");
+		annuaire.getRelais("Paris").getServices("Snack").ajouterPlage("09h00", "20h00");
+		annuaire.getRelais("Paris").ajouterService("Essence");
+		annuaire.getRelais("Paris").getServices("Essence").ajouterPlage("08h00", "19h23");
+		annuaire.getRelais("Paris").ajouterService("WC");
+		annuaire.getRelais("Paris").getServices("WC").ajouterPlage("06h00", "22h00");
 		menuPrincipal();
 	}
 	
