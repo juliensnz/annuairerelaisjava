@@ -138,7 +138,7 @@ public class Annuaire {
 	
 	public Relais getRelais(String nom) {
 		for(Relais r : this.annuaireRelais) {
-			if(r.getNom() == nom)
+			if(r.getNom().equals(nom))
 				return r;
 		}
 		return null;
