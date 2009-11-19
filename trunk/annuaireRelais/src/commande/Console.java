@@ -1,7 +1,6 @@
 package commande;
 
 import java.util.Scanner;
-
 import exceptions.RelaisException;
 import app.Annuaire;
 import app.Relais;

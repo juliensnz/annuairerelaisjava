@@ -22,7 +22,7 @@ public class Relais {
 	public Relais(int x, int y, String nom) throws RelaisException {
 		if (x < 0 || y < 0)
 			throw new RelaisException("La position d'un relais ne peut tre nŽgative !");
-		else if(nom == "")
+		else if(nom.equals(" "))
 			throw new RelaisException("Le nom d'un relais ne peut pas tre vide !");
 		else {
 			this.positionX = x;
@@ -65,7 +65,7 @@ public class Relais {
 	}//Changer la position d'un relais.
 	
 	public void setNom(String nom) throws RelaisException {
-		if(nom == "")
+		if(nom.equals(" "))
 			throw new RelaisException("Le nom d'un relais ne peux pas tre vide");
 		else
 			this.nom = nom;
@@ -77,7 +77,7 @@ public class Relais {
 		
 		if(nomService != ""){
 			for(Service s : this.services) {
-				if(s.getNom() == nouvService.getNom()){
+				if(s.getNom().equals(nouvService.getNom())){
 					contient = true;
 					throw new RelaisException("Le service existe dŽjˆ");
 				}
@@ -97,7 +97,7 @@ public class Relais {
 	
 	public void retirerService(Service s) {
 		for(Service si : this.services) {
-			if(si.getNom() == s.getNom())
+			if(si.getNom().equals(s.getNom()))
 				this.services.remove(s);
 		}	
 	}//Retire un service d'un relais (Žventuellement plusieurs).
