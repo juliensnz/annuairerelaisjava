@@ -77,9 +77,9 @@ public class Console {
 	public void trouverService()
 	{
 		System.out.println("Ou vous trouvez vous ?");
-		System.out.print("Position X :");
+		System.out.print("Position X : ");
 		int positionX = getInt();
-		System.out.print("Position Y :");
+		System.out.print("Position Y : ");
 		int positionY = getInt();
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("1. Trouver les relais à proximité.");
