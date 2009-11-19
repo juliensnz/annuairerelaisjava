@@ -51,7 +51,7 @@ public class Annuaire {
 		ListIterator<Relais> it = this.annuaireRelais.listIterator();
 		
 		while(it.hasNext()) {
-			if((it.next()).getNom() == nom)
+			if((it.next()).getNom().equals(nom))
 				it.remove();
 		}	
 	}//Retire de l'annuaire tous les relais nommés "nom"
@@ -72,7 +72,7 @@ public class Annuaire {
 		while(it.hasNext()) {
 			Relais r = it.next();
 			for(Service si : r.getServices()) {
-				if(si.getNom() == s.getNom())
+				if(si.getNom().equals(s.getNom()))
 					it.remove();
 			}
 		}
@@ -97,7 +97,7 @@ public class Annuaire {
 		System.out.println("Voici la liste des relais présents dans l'annuaire offrant le service " + s.getNom() + " : \n");
 		for(Relais r : this.annuaireRelais) {
 			for(Service si : r.getServices()) {
-				if(si.getNom() == s.getNom()){
+				if(si.getNom().equals(s.getNom())){
 					r.afficherRelais();
 					System.out.println("=========================");
 				}
