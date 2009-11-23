@@ -2,7 +2,7 @@ package app;
 
 import java.util.Scanner;
 
-public class Service {
+public class Service implements Comparable<Service>{
 	private String nom;
 	private static int id = 0;
 	private boolean[] dispo = new boolean[1440];
@@ -125,5 +125,9 @@ public class Service {
 	
 	public String getNom() {
 		return nom;
+	}
+
+	public int compareTo(Service o) {
+		return this.getNom().compareTo(o.getNom());
 	}
 }
