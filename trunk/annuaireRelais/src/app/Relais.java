@@ -189,8 +189,6 @@ public class Relais implements Comparable<Relais>{
 
 	public boolean contientService(String nom) {
 		for (Service s : this.services) {
-			System.out.println("Nom get : " + s.getNom());
-			System.out.println("Nom : " + nom);
 			if (s.getNom().equals(nom))
 				return true;
 		}
@@ -205,7 +203,7 @@ public class Relais implements Comparable<Relais>{
 	public void afficherServices() {
 		System.out.println("Services disponnibles :");
 		for (Service s : this.services)
-			System.out.println("- " + s.getNom() + " | Horaires : " + s.getPlage() + "");
+			System.out.println("\t- " + s.getNom() + " | Horaires :" + s.getPlage());
 	}// Affiche les services d'un relais et leur horaires de disponibilité.
 
 	public static Relais genererRelais() {
@@ -265,7 +263,6 @@ public class Relais implements Comparable<Relais>{
 		return this.services.size();
 	}
 
-	@Override
 	public int compareTo(Relais o) {
 		return this.getNom().compareTo(o.getNom());
 	}

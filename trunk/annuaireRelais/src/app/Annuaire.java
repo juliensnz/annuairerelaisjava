@@ -113,7 +113,7 @@ public class Annuaire {
 		List<Relais> correspond = new LinkedList<Relais>();
 		int heures = (int) (System.currentTimeMillis() / (1000 * 60 * 60) % 24 + 1);// Initialisation du timestamp
 		int minutes = (int) (System.currentTimeMillis() / (1000 * 60) % 60);
-		System.out.println(heures + "h" + minutes + "min");
+		System.out.println("Heure actuelle : " + heures + "h" + minutes + "min");
 		for (Relais r : this.annuaireRelais) {
 			if (r.contientService(service) && r.getServices(service).getDispo()[heures * 60 + minutes]) {
 				correspond.add(r);
@@ -133,6 +133,14 @@ public class Annuaire {
 		}
 	}
 
+	public void supprimerRelais(int i){
+		if(i >= 0 && i < this.annuaireRelais.size()){
+			this.annuaireRelais.remove(i);
+			Collections.sort(this.annuaireRelais);
+		}
+		
+	}
+	
 	public Relais getRelais(int i) {
 		return this.annuaireRelais.get(i);
 	}// Getter Relais par index
@@ -151,5 +159,9 @@ public class Annuaire {
 
 	public List<Relais> getListRelais() {
 		return this.annuaireRelais;
+	}
+
+	public boolean equals(Annuaire annuaire) {
+		return this.annuaireRelais.equals(annuaire.getListRelais());
 	}
 }

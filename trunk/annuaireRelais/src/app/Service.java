@@ -54,7 +54,7 @@ public class Service implements Comparable<Service>{
 		
 		for(int i = 0; i < this.dispo.length; i++) {
 			ouvertureService = (this.dispo[i] == true && etat == false) ? i : ouvertureService; //Prend pour valeur vrai au dŽbut d'un plage horaire.
-			resultat += (this.dispo[i] == false && etat == true) ? ("["+this.traduire(ouvertureService)+" : "+this.traduire(i)+"] ") : "";
+			resultat += (this.dispo[i] == false && etat == true) ? (" ["+this.traduire(ouvertureService)+" : "+this.traduire(i)+"]") : "";
 			//Se dŽclenche a la fin d'une plage.
 			etat = this.dispo[i];
 		}
