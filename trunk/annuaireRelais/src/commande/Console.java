@@ -10,8 +10,6 @@ public class Console {
 	LinkedList<Annuaire> listeAnnuaires = new LinkedList<Annuaire>();
 	
 	public Console() throws RelaisException {
-		System.out.println("Bienvenue dans notre programme d'annuaire");
-		System.out.println("Que voulez vous faire ?");
 		Annuaire annuaire = new Annuaire();
 		annuaire.ajouterRelais(12, 6, "Nantes");
 		annuaire.ajouterRelais(23, 45, "Nancy");
@@ -38,6 +36,9 @@ public class Console {
 		annuaire.getRelais("Paris").ajouterService("WC");
 		annuaire.getRelais("Paris").getServices("WC").ajouterPlage("06h00", "22h00");
 		this.ajouterAnnuaire(annuaire);
+		this.ajouterAnnuaire(annuaire);
+		System.out.println("Bienvenue dans notre programme d'annuaire");
+		System.out.println("Que voulez vous faire ?");
 		this.menuPrincipal();
 	}
 	
@@ -164,6 +165,10 @@ public class Console {
 			System.out.println("Fin des tests. Au revoir.");
 			System.exit(0);
 			break;
+		default :
+			System.out.println("Fin des tests. Au revoir.");
+			System.exit(0);
+			break;	
 		}
 	}
 
