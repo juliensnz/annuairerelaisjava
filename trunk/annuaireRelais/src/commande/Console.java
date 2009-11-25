@@ -57,10 +57,8 @@ public class Console {
 		System.out.println("5. Comparer deux relais");
 		System.out.println("6. Afficher la liste des relais");
 		System.out.println("7. Quitter");
-		int entree;
-		
 		System.out.print("Choix : ");
-		entree = getInt();
+		int entree = getInt();
 		switch(entree) {
 			case 1 :
 				this.ajouterRelais(monAnnuaire);
@@ -74,7 +72,7 @@ public class Console {
 				}
 				else {	
 					System.out.println("Quel relais souhaitez vous éditer ?");
-					for(int i = 0;i<monAnnuaire.getNbRelais();i++) {
+					for(int i = 0; i < monAnnuaire.getNbRelais(); i++) {
 						System.out.println(i+1+". "+monAnnuaire.getRelais(i).getNom());
 					}
 					System.out.println("Autre. Annuler");
@@ -93,7 +91,7 @@ public class Console {
 					this.menuRelais(monAnnuaire);
 				}
 				else {	
-					System.out.println("Quel relais souhaitez vous spprimer ?");
+					System.out.println("Quel relais souhaitez vous supprimer ?");
 					for(int i = 0;i<monAnnuaire.getNbRelais();i++) {
 						System.out.println(i+1+". "+monAnnuaire.getRelais(i).getNom());
 					}
@@ -122,7 +120,7 @@ public class Console {
 					choix1--;
 					choix2--;
 					if(monAnnuaire.getRelais(choix1).equals(monAnnuaire.getRelais(choix2)))
-						System.out.println("Ces deux relais sont égaux\n");
+						System.out.println("Ces deux relais sont égaux (proposent les mêmes services)\n");
 					else
 						System.out.println("Ces deux relais sont différents\n");
 				}
@@ -143,7 +141,7 @@ public class Console {
 				
 				this.menuRelais(monAnnuaire);
 				break;
-			//7 => Quitter, on passe dans le défault
+			//Case 7 : Quitter, on passe dans le défault
 			default :
 				this.menuPrincipal();
 				break;
@@ -237,6 +235,7 @@ public class Console {
 		System.out.println("2. Trouver le relais le plus proche.");
 		System.out.println("3. Trouver un service a proximité.");
 		System.out.println("4. Trouver les relais proposant un service");
+		System.out.println("5. Distance d'un relais à la position actuelle");
 		System.out.println("Autre. Annuler");
 		System.out.println("Choix :");
 		int choix = getInt();
@@ -248,8 +247,7 @@ public class Console {
 				int cpt = 0;
 				 for(Relais r : monAnnuaire.getListRelais()) {
 					 if(r.distance(positionX, positionY) < rayon) {
-						 System.out.print("- "+r.getNom()+" , ");
-						 r.afficherServices();
+						 r.afficherRelais(true);
 						 cpt++;
 					 }
 					 i++;
@@ -273,17 +271,28 @@ public class Console {
 			case 3 :
 				System.out.println("Trouver le relais le plus proche proposant un service");
 				System.out.print("Nom du service : ");
-				String nom;
-				nom = getString();
+				String nom = getString();
 				monAnnuaire.rechercherRelais(positionX,positionY,nom);
 				break;
 			case 4 :
 				System.out.println("Trouver les relais proposant un service");
 				System.out.print("Nom du service : ");
-				String nom2;
-				nom2 = getString();
+				String nom2 = getString();
 				Service s = new Service(nom2);
 				monAnnuaire.afficherAnnuaire(s);
+				break;
+			case 5:
+				monAnnuaire.afficherAnnuaire(false);
+				System.out.println("Autre. Annuler");
+				System.out.println("Choix :");
+				int entree = getInt();
+				if(entree > 0 && entree <= monAnnuaire.getNbRelais()){
+					entree--;
+					Relais r = monAnnuaire.getRelais(entree);
+					System.out.println("Le relais " + r.getNom() + " est à " + r.distance(positionX, positionY) + "km d'ici.\n" );
+				}
+				else
+					System.out.println("Le relais n°"+entree+" n'existe pas, retour au menu précédent");
 				break;
 			default :
 				break;
