@@ -214,11 +214,11 @@ public class Console {
 		System.out.print("Nom : ");
 		nom = getString();
 		
-		System.out.print("Position X : ");
+		System.out.print("Abscisse : ");
 		int positionX = 0;
 		positionX = getInt();
 		
-		System.out.print("Position Y : ");
+		System.out.print("Ordonnee : ");
 		int positionY = getInt();
 		monAnnuaire.ajouterRelais(positionX,positionY,nom);
 	}
