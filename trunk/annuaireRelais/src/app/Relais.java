@@ -195,9 +195,10 @@ public class Relais implements Comparable<Relais>{
 		return false;
 	}// Renvoie vrai si le relais contient un service nommé "nom", faux sinon.
 
-	public void afficherRelais() {
+	public void afficherRelais(boolean service) {
 		System.out.println(this.nom + " :\nAbscisse : " + this.positionX + "\nOrdonnee : " + this.positionY);
-		afficherServices();
+		if (service)
+			afficherServices();
 	}// Affiche un relais et ses services.
 
 	public void afficherServices() {

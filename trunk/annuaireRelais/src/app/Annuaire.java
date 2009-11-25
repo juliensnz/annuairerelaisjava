@@ -84,30 +84,30 @@ public class Annuaire {
 			it.next().retirerService(s);
 	}// Retire un service donné de tous les relais de l'annuaire
 
-	public void afficherAnnuaire() {
-		System.out
-		.println("Voici la liste des relais présents dans l'annuaire : \n");
+	public void afficherAnnuaire(boolean service) {
+		System.out.println("Voici la liste des relais présents dans l'annuaire : \n");
+		int i = 1;
 		for (Relais r : this.annuaireRelais) {
-			r.afficherRelais();
+			System.out.println(i+".");
+			r.afficherRelais(service);
 			System.out.println("=========================");
+			i++;
 		}
 	}// Affiche tout l'annuaire
 
 	public void afficherAnnuaire(Service s) {
-		System.out
-		.println("Voici la liste des relais présents dans l'annuaire offrant le service "
+		System.out.println("Voici la liste des relais présents dans l'annuaire offrant le service "
 				+ s.getNom() + " : \n");
 		for (Relais r : this.annuaireRelais) {
 			for (Service si : r.getServices()) {
 				if (si.getNom().equals(s.getNom())) {
-					r.afficherRelais();
+					r.afficherRelais(true);
 					System.out.println("=========================");
 				}
 			}
-			System.out.println("Fin de la liste");
 		}
-	}// Affiche tous les relais de l'annuaire offrant le service s, comparaison
-	// sur les noms
+		System.out.println("Fin de la liste");
+	}// Affiche tous les relais de l'annuaire offrant le service s, comparaison sur les noms
 
 	public void rechercherRelais(int positionX, int positionY, String service) {
 		List<Relais> correspond = new ArrayList<Relais>();
@@ -138,8 +138,7 @@ public class Annuaire {
 			this.annuaireRelais.remove(i);
 			Collections.sort(this.annuaireRelais);
 		}
-		
-	}
+	}//Supprime un relais de l'annuaire
 	
 	public Relais getRelais(int i) {
 		return this.annuaireRelais.get(i);
