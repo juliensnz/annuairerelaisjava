@@ -6,6 +6,7 @@ import java.util.Scanner;
 import exceptions.RelaisException;
 import app.Annuaire;
 import app.Relais;
+import app.Service;
 
 public class Console {
 	List<Annuaire> listeAnnuaires = new ArrayList<Annuaire>();
@@ -52,8 +53,10 @@ public class Console {
 		System.out.println("1. Ajouter un relais");
 		System.out.println("2. Editer un relais");
 		System.out.println("3. Supprimer un relais");
-		System.out.println("4. Rechercher . . .");
-		System.out.println("5. Quitter");
+		System.out.println("4. Rechercher un relais / un service");
+		System.out.println("5. Comparer deux relais");
+		System.out.println("6. Afficher la liste des relais");
+		System.out.println("7. Quitter");
 		int entree;
 		
 		System.out.print("Choix : ");
@@ -107,6 +110,40 @@ public class Console {
 			case 4 :
 				this.trouverService(monAnnuaire);
 				break;
+			case 5 :
+				monAnnuaire.afficherAnnuaire(false);
+				System.out.println("Autre. Annuler");
+				int choix1, choix2;
+				System.out.print("Comparer le relais n¡");
+				choix1 = getInt();
+				System.out.print("avec le relais n¡");
+				choix2 = getInt();
+				if(choix1 > 0 && choix1 <= monAnnuaire.getNbRelais() && choix2 > 0 && choix2 <= monAnnuaire.getNbRelais()){
+					choix1--;
+					choix2--;
+					if(monAnnuaire.getRelais(choix1).equals(monAnnuaire.getRelais(choix2)))
+						System.out.println("Ces deux relais sont Žgaux\n");
+					else
+						System.out.println("Ces deux relais sont diffŽrents\n");
+				}
+				this.menuRelais(monAnnuaire);
+				break;
+			case 6 :
+				System.out.println("1. Avec les services");
+				System.out.println("2. Sans les services");
+				System.out.println("Autre. Annuler");
+				
+				int entree2;
+				System.out.print("Choix : ");
+				entree2 = getInt();
+				if(entree2 == 1)
+					monAnnuaire.afficherAnnuaire(true);
+				else if (entree2 == 2)
+					monAnnuaire.afficherAnnuaire(false);
+				
+				this.menuRelais(monAnnuaire);
+				break;
+			//7 => Quitter, on passe dans le dŽfault
 			default :
 				this.menuPrincipal();
 				break;
@@ -115,7 +152,7 @@ public class Console {
 
 	public void menuPrincipal() {
 		System.out.println("1. Ajouter un annuaire");
-		System.out.println("2. Editer un annuaire");
+		System.out.println("2. Utiliser / Editer un annuaire");
 		System.out.println("3. Comparer deux annuaires");
 		System.out.println("4. Quitter");
 		
@@ -151,7 +188,6 @@ public class Console {
 			choix1 = getInt();
 			System.out.print("avec l'annuaire n¡");
 			choix2 = getInt();
-			System.out.println("Choix 1 : "+choix1+" Choix2 : "+choix2);
 			if(choix1 > 0 && choix1 <= this.listeAnnuaires.size() && choix2 > 0 && choix2 <= this.listeAnnuaires.size()){
 				choix1--;
 				choix2--;
@@ -198,9 +234,11 @@ public class Console {
 		int positionY = getInt();
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("1. Trouver les relais ˆ proximitŽ.");
-		System.out.println("2. Trouver le relais ˆ le plus proche.");
-		System.out.println("3. Trouver un service.");
+		System.out.println("2. Trouver le relais le plus proche.");
+		System.out.println("3. Trouver un service a proximitŽ.");
+		System.out.println("4. Trouver les relais proposant un service");
 		System.out.println("Autre. Annuler");
+		System.out.println("Choix :");
 		int choix = getInt();
 		switch(choix) {
 			case 1 :
@@ -238,6 +276,14 @@ public class Console {
 				String nom;
 				nom = getString();
 				monAnnuaire.rechercherRelais(positionX,positionY,nom);
+				break;
+			case 4 :
+				System.out.println("Trouver les relais proposant un service");
+				System.out.print("Nom du service : ");
+				String nom2;
+				nom2 = getString();
+				Service s = new Service(nom2);
+				monAnnuaire.afficherAnnuaire(s);
 				break;
 			default :
 				break;
