@@ -324,4 +324,7 @@ public class Console {
 		entree = sc.next();
 		return entree;
 	}
+	public static void lancer() throws RelaisException{
+		Console c = new Console();
+	}
 }
