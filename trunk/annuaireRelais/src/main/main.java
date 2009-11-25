@@ -11,10 +11,9 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		try {
-		Console.lancer();
-	} catch (RelaisException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+			Console.lancer();
+		} catch (RelaisException e) {
+			e.printStackTrace();
+		}
 	}
 }
