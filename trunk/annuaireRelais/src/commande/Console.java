@@ -30,7 +30,7 @@ public class Console {
 		annuaire.getRelais("Lyon").getServices("Essence").ajouterPlage("11h00", "17h00");
 		annuaire.getRelais("Lyon").ajouterService("WC");
 		annuaire.getRelais("Lyon").getServices("WC").ajouterPlage("04h00", "23h00");
-		
+
 		annuaire.getRelais("Paris").ajouterService("Snack");
 		annuaire.getRelais("Paris").getServices("Snack").ajouterPlage("09h00", "20h00");
 		annuaire.getRelais("Paris").ajouterService("Essence");
@@ -62,7 +62,6 @@ public class Console {
 		switch(entree) {
 			case 1 :
 				this.ajouterRelais(monAnnuaire);
-				System.out.println("Relais cr \n");
 				this.menuRelais(monAnnuaire);
 				break;
 			case 2 :
@@ -101,6 +100,7 @@ public class Console {
 					if(entree > 0 && entree <= monAnnuaire.getNbRelais()){
 						entree--;
 						monAnnuaire.supprimerRelais(entree);
+						System.out.println("Le relais a bien t supprim");
 					}
 					this.menuRelais(monAnnuaire);
 				}

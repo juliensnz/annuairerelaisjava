@@ -24,14 +24,12 @@ public class Annuaire {
 		Relais nouveauRelais = null;
 		try {
 			nouveauRelais = new Relais(positionX, positionY, nom);
-		} catch (RelaisException e) {
-			nouveauRelais = new Relais();
-		}
-		this.annuaireRelais.add(nouveauRelais);
-		Collections.sort(this.annuaireRelais);
+			System.out.println("Relais crŽŽ \n");
+			this.annuaireRelais.add(nouveauRelais);
+			Collections.sort(this.annuaireRelais);
+		} catch (RelaisException e) {}
 	}// Ajoute un relais de coordonnee (positionX, positionY) nomme "nom" ˆ
-	// l'annuaire, ajoute un relais par defaut en cas d'echec de la creation
-	// d'un relais parametre
+	// l'annuaire.
 
 	public void editerUnRelais() {
 		Scanner scan = new Scanner(System.in);
