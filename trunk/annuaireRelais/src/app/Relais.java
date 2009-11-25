@@ -137,11 +137,9 @@ public class Relais implements Comparable<Relais>{
 				System.out.print("Nom : ");
 				scan.nextLine();
 				String choixServ = scan.nextLine();
-				System.out.println("choixServ : " + choixServ);
 				try {
 					this.ajouterService(choixServ);
-				} catch (RelaisException e) {
-				}
+				} catch (RelaisException e) {}
 				this.editer();
 				break;
 			case 2:
