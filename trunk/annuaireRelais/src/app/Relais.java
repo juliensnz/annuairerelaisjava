@@ -1,8 +1,8 @@
 package app;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 import exceptions.RelaisException;
 
@@ -11,7 +11,7 @@ public class Relais implements Comparable<Relais>{
 	private int positionX;
 	private int positionY;
 	private static int id = 0;
-	private List<Service> services = new LinkedList<Service>();
+	private List<Service> services = new ArrayList<Service>();
 
 	public Relais() {
 		this.positionX = 0;
@@ -220,7 +220,7 @@ public class Relais implements Comparable<Relais>{
 	}// Méthode pour générer aléatoirement un relais.
 
 	public static List<Relais> genererRelais(int nbRelais) {
-		List<Relais> l = new LinkedList<Relais>();
+		List<Relais> l = new ArrayList<Relais>();
 		for (int i = 0; i < nbRelais; i++) {
 			l.add(Relais.genererRelais());
 		}

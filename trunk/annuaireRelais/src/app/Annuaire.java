@@ -2,8 +2,8 @@ package app;
 
 import java.util.Collections;
 import java.util.ListIterator;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 import exceptions.RelaisException;
 
@@ -11,7 +11,7 @@ public class Annuaire {
 	private List<Relais> annuaireRelais = null;
 
 	public Annuaire() {
-		this.annuaireRelais = new LinkedList<Relais>();
+		this.annuaireRelais = new ArrayList<Relais>();
 	}// Constructeur basique. Ajouter un constructeur prenant une liste en parametre? Un compteur d'annuaires?
 
 	public void ajouterRelais() {
@@ -110,7 +110,7 @@ public class Annuaire {
 	// sur les noms
 
 	public void rechercherRelais(int positionX, int positionY, String service) {
-		List<Relais> correspond = new LinkedList<Relais>();
+		List<Relais> correspond = new ArrayList<Relais>();
 		int heures = (int) (System.currentTimeMillis() / (1000 * 60 * 60) % 24 + 1);// Initialisation du timestamp
 		int minutes = (int) (System.currentTimeMillis() / (1000 * 60) % 60);
 		System.out.println("Heure actuelle : " + heures + "h" + minutes + "min");

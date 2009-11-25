@@ -1,13 +1,14 @@
 package commande;
 
-import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 import exceptions.RelaisException;
 import app.Annuaire;
 import app.Relais;
 
 public class Console {
-	LinkedList<Annuaire> listeAnnuaires = new LinkedList<Annuaire>();
+	List<Annuaire> listeAnnuaires = new ArrayList<Annuaire>();
 	
 	public Console() throws RelaisException {
 		Annuaire annuaire = new Annuaire();
