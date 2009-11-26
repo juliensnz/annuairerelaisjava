@@ -7,12 +7,13 @@ public class main {
 
 	/**
 	 * @param args
-	 * @throws ConsoleException 
+	 * @throws ConsoleException
 	 */
 	public static void main(String[] args) {
 		try {
 			Console.lancer();
-		} catch (RelaisException e) {
+		}
+		catch (RelaisException e) {
 			e.printStackTrace();
 		}
 	}
