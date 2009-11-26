@@ -48,105 +48,159 @@ public class Console {
 		this.listeAnnuaires.add(annuaire);
 		System.out.println("Un annuaire a été créé.");		
 	}
-
-	public void menuRelais(Annuaire monAnnuaire) {
-		System.out.println("1. Ajouter un relais");
-		System.out.println("2. Editer un relais");
-		System.out.println("3. Supprimer un relais");
-		System.out.println("4. Rechercher un relais / un service");
-		System.out.println("5. Comparer deux relais");
-		System.out.println("6. Afficher la liste des relais");
-		System.out.println("7. Quitter");
+	
+	
+	
+	
+	
+	
+	public void editer() {
+		System.out.println("Edition du relais : " + this.nom);
+		System.out.println("Que voulez vous éditer ?");
+		System.out.println("1. Nom");
+		System.out.println("2. Position X");
+		System.out.println("3. Position Y");
+		System.out.println("4. Services");
+		System.out.println("5. Quitter l'editeur de relais");
+		Scanner scan = new Scanner(System.in);
+		int choixEdit = 0;
 		System.out.print("Choix : ");
-		int entree = getInt();
+		choixEdit = scan.nextInt();
+		scan.nextLine();
+		switch (choixEdit) {
+		case 1:
+			System.out.print("Nom : ");
+			this.nom = scan.nextLine();
+			this.editer();
+			break;
+		case 2:
+			System.out.print("X : ");
+			this.positionX = scan.nextInt();
+			this.editer();
+			break;
+		case 3:
+			System.out.print("Y : ");
+			this.positionY = scan.nextInt();
+			this.editer();
+			break;
+		case 4:
+			System.out.println("1. Ajouter un service");
+			System.out.println("2. Editer un service");
+			System.out.println("3. Supprimer un service");
+			System.out.println("4. Quitter l'éditeur de service");
+			System.out.print("Choix : ");
+			choixEdit = scan.nextInt();
+			switch (choixEdit) {
+			case 1:
+				System.out.println("Ajouter un service : ");
+				System.out.print("Nom : ");
+				scan.nextLine();
+				String choixServ = scan.nextLine();
+				try {
+					this.ajouterService(choixServ);
+				} catch (RelaisException e) {}
+				this.editer();
+				break;
+			case 2:
+				if (this.getNbService() == 0) {
+					System.out.println("Le relais ne propose pas de service pour l'instant. Vous devez créer un service avant de pouvoir l'éditer");
+					this.editer();
+				} else {
+					System.out.println("Editer un service : ");
+					for (int i = 0; i < this.getNbService(); i++)
+						System.out.println(i + 1 + ". " + this.services.get(i).getNom());
+					System.out.print("Choix : ");
+					choixEdit = scan.nextInt();
+					this.services.get(choixEdit - 1).editer();
+				}
+				this.editer();
+				break;
+			case 3:
+				if (this.getNbService() == 0) {
+					System.out.println("Le relais ne propose pas de service pour l'instant. Vous devez créer des services avant de pouvoir en supprimer");
+					this.editer();
+				} else {
+					System.out.println("Supprimer un service : ");
+					for (int i = 0; i < this.getNbService(); i++)
+						System.out.println(i + 1 + ". " + this.services.get(i).getNom());
+					System.out.print("Choix : ");
+					choixEdit = scan.nextInt();
+					this.retirerService(this.services.get(choixEdit - 1));
+				}
+				this.editer();
+				break;
+			case 4:
+				this.editer();
+				break;
+			default:
+				break;
+			}
+			break;
+		case 5:
+			System.out.println("Retour au menu précédent");
+			break;
+		default:
+			System.out.println("Retour au menu précédent");
+		}
+	}
+	public void editer() {
+		System.out.println("Editer un service :");
+		
+		System.out.println("1. Ajouter une plage horaire");
+		System.out.println("2. Supprimer une plage horaire");
+		System.out.println("3. Afficher les plages horaires");
+		System.out.println("4. Quitter l'éditeur de services");
+		System.out.print("Choix : ");
+		Scanner sc = new Scanner(System.in);
+		int entree = sc.nextInt();
 		switch(entree) {
 			case 1 :
-				this.ajouterRelais(monAnnuaire);
-				this.menuRelais(monAnnuaire);
+					System.out.println("Ajouter une plage horaire (XXhYYmin) : ");
+					System.out.print("De : ");
+					String debut = sc.next();
+					System.out.print("à : ");
+					String fin = sc.next();
+					this.ajouterPlage(debut,fin);
+					this.editer();
 				break;
 			case 2 :
-				if(monAnnuaire.getNbRelais() == 0) {
-					System.out.println("L'annuaire est vide. Vous devez créer un relais avant de pouvoir l'éditer");
-					this.menuRelais(monAnnuaire);
-				}
-				else {	
-					System.out.println("Quel relais souhaitez vous éditer ?");
-					for(int i = 0; i < monAnnuaire.getNbRelais(); i++) {
-						System.out.println(i+1+". "+monAnnuaire.getRelais(i).getNom());
-					}
-					System.out.println("Autre. Annuler");
-					System.out.print("Choix : ");
-					entree = getInt();
-					if(entree > 0 && entree <= monAnnuaire.getNbRelais()){
-						entree--;
-						monAnnuaire.getRelais(entree).editer();
-					}
-					this.menuRelais(monAnnuaire);
-				}
+				System.out.println("Supprimer une plage horaire (XXhYYmin) : ");
+				System.out.print("De : ");
+				String debutSup = sc.next();
+				System.out.print("à : ");
+				String finSup = sc.next();
+				this.supprimerPlage(debutSup,finSup);
+				this.editer();
 				break;
 			case 3 :
-				if(monAnnuaire.getNbRelais() == 0) {
-					System.out.println("L'annuaire est vide. Vous devez créer des relais avant de pouvoir en supprimer");
-					this.menuRelais(monAnnuaire);
-				}
-				else {	
-					System.out.println("Quel relais souhaitez vous supprimer ?");
-					for(int i = 0;i<monAnnuaire.getNbRelais();i++) {
-						System.out.println(i+1+". "+monAnnuaire.getRelais(i).getNom());
-					}
-					System.out.println("Autre. Annuler");
-					System.out.print("Choix : ");
-					entree = getInt();
-					if(entree > 0 && entree <= monAnnuaire.getNbRelais()){
-						entree--;
-						monAnnuaire.supprimerRelais(entree);
-						System.out.println("Le relais a bien été supprimé");
-					}
-					this.menuRelais(monAnnuaire);
-				}
+				System.out.print("Plages d'ouverture : ");
+				afficherPlage();
+				this.editer();
 				break;
 			case 4 :
-				this.trouverService(monAnnuaire);
+				System.out.println("Retour au menu précédent");
 				break;
-			case 5 :
-				monAnnuaire.afficherAnnuaire(false);
-				System.out.println("Autre. Annuler");
-				int choix1, choix2;
-				System.out.print("Comparer le relais n°");
-				choix1 = getInt();
-				System.out.print("avec le relais n°");
-				choix2 = getInt();
-				if(choix1 > 0 && choix1 <= monAnnuaire.getNbRelais() && choix2 > 0 && choix2 <= monAnnuaire.getNbRelais()){
-					choix1--;
-					choix2--;
-					if(monAnnuaire.getRelais(choix1).equals(monAnnuaire.getRelais(choix2)))
-						System.out.println("Ces deux relais sont égaux (proposent les mêmes services)\n");
-					else
-						System.out.println("Ces deux relais sont différents\n");
-				}
-				this.menuRelais(monAnnuaire);
-				break;
-			case 6 :
-				System.out.println("1. Avec les services");
-				System.out.println("2. Sans les services");
-				System.out.println("Autre. Annuler");
-				
-				int entree2;
-				System.out.print("Choix : ");
-				entree2 = getInt();
-				if(entree2 == 1)
-					monAnnuaire.afficherAnnuaire(true);
-				else if (entree2 == 2)
-					monAnnuaire.afficherAnnuaire(false);
-				
-				this.menuRelais(monAnnuaire);
-				break;
-			//Case 7 : Quitter, on passe dans le défault
 			default :
-				this.menuPrincipal();
-				break;
-		}	
+				System.out.println("Retour au menu précédent");
+		}
+	}//Editer un service.
+
+	public void afficherRelais(boolean service) {
+		System.out.println("- "+this.nom + " :\nAbscisse : " + this.positionX + "\nOrdonnee : " + this.positionY);
+		if (service)
+			afficherServices();
+	}// Affiche un relais et ses services.
+
+	public void afficherServices() {
+		System.out.println("Services disponnibles :");
+		for (Service s : this.services)
+			System.out.println("\t- " + s.getNom() + " | Horaires :" + s.getPlage());
+	}// Affiche les services d'un relais et leur horaires de disponibilité.
+	public void afficherPlage(){
+		System.out.println(this.getPlage());
 	}
+
+	
 
 	public void menuPrincipal() {
 		System.out.println("1. Ajouter un annuaire");
@@ -207,21 +261,7 @@ public class Console {
 		}
 	}
 
-	public void ajouterRelais(Annuaire monAnnuaire)
-	{
-		System.out.println("Création d'un relais :");
-		String nom = null;
-		System.out.print("Nom : ");
-		nom = getString();
-		
-		System.out.print("Abscisse : ");
-		int positionX = 0;
-		positionX = getInt();
-		
-		System.out.print("Ordonnee : ");
-		int positionY = getInt();
-		monAnnuaire.ajouterRelais(positionX,positionY,nom);
-	}
+	
 	
 	public void trouverService(Annuaire monAnnuaire)
 	{
@@ -300,30 +340,6 @@ public class Console {
 		this.menuRelais(monAnnuaire);
 	}
 	
-	public String getString() {
-		Scanner sc = new Scanner(System.in);
-		String entree = sc.nextLine();
-		return entree;
-	}
-	
-	public int getInt()
-	{
-		Scanner sc = new Scanner(System.in);
-		int entree = 0;
-		try{
-			entree = sc.nextInt();
-		}catch(java.util.InputMismatchException e) {
-			System.out.print("Veuillez entrer un nombre valide : ");
-			return this.getInt();
-		}
-		return entree;
-	}
-	public String getHeure() {
-		Scanner sc = new Scanner(System.in);
-		String entree ;
-		entree = sc.next();
-		return entree;
-	}
 	public static void lancer() throws RelaisException{
 		Console c = new Console();
 	}
