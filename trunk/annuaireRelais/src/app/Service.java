@@ -1,7 +1,5 @@
 package app;
 
-import java.util.Scanner;
-
 public class Service implements Comparable<Service>{
 	private String nom;
 	private static int id = 0;
@@ -10,11 +8,10 @@ public class Service implements Comparable<Service>{
 	public Service(String nom) {
 		Service.id++;
 		this.nom = nom;
-		for(int i=0;i<1440;i++)
+		for(int i  =0; i < 1440; i++)
 			this.dispo[i]=false;
 	}//Constructeur
 	
-
 	public void ajouterPlage(int minDebut,int minFin) {
 		int min = (minDebut <= minFin) ? minDebut : minFin;
 		int max = (minDebut <= minFin) ? minFin : minDebut;
@@ -28,9 +25,6 @@ public class Service implements Comparable<Service>{
 		ajouterPlage(this.traduire(heureDebut),this.traduire(heureFin));
 	}//Ajout d'une plage avec des valeurs formatées en XXhYYmin
 	
-	
-
-	
 	public void supprimerPlage(int minDebut,int minFin) {
 		int min = (minDebut <= minFin) ? minDebut : minFin;
 		int max = (minDebut <= minFin) ? minFin : minDebut;
@@ -43,10 +37,23 @@ public class Service implements Comparable<Service>{
 		supprimerPlage(this.traduire(heureDebut),this.traduire(heureFin));
 	}//Suppression d'une plage avec des valeurs formatées en XXhYYmin
 	
-	public void afficherPlage(){
-		System.out.println(this.getPlage());
-	}
+	public String traduire(int time) {
+		int heures = time/60;
+		int minutes = time%60;
+		
+		return ((heures < 10) ? ("0"+heures) : (""+heures)) + "h" + ((minutes < 10) ? ("0"+minutes) : (""+minutes));
+	}//Transforme un temps en minutes (0 à 1440) en XXhYYmin
+
+	public int traduire(String time) {
+		int heures = Integer.parseInt(time.substring(0, time.indexOf("h")));
+		int minutes = Integer.parseInt(time.substring(time.indexOf("h") + 1, time.indexOf("h") + 3));
+		
+		return (heures * 60 + minutes);
+	}//Transforme un temps en heures minutes XXhYYmin en entier (0 à 1440)
 	
+	public String getNom() {
+		return this.nom;
+	}
 	public String getPlage() {
 		boolean etat = false;
 		int ouvertureService = 0;
@@ -61,72 +68,11 @@ public class Service implements Comparable<Service>{
 		resultat += ".";
 		return resultat;
 	}// Retourne les horaires d'ouverture d'un service sous forme de chaine.
-	
-	public String traduire(int time) {
-		int heures = time/60;
-		int minutes = time%60;
-		
-		return ((heures < 10) ? ("0"+heures) : (""+heures)) + "h" + ((minutes < 10) ? ("0"+minutes) : (""+minutes));
-	}//Transforme un temps en minutes (0 à 1440) en XXhYYmin
-	
-	public int traduire(String time) {
-		int heures = Integer.parseInt(time.substring(0, time.indexOf("h")));
-		int minutes = Integer.parseInt(time.substring(time.indexOf("h") + 1, time.indexOf("h") + 3));
-		
-		return (heures * 60 + minutes);
-	}//Transforme un temps en heures minutes XXhYYmin en entier (0 à 1440)
-	
-	
-	public void editer() {
-		System.out.println("Editer un service :");
-		
-		System.out.println("1. Ajouter une plage horaire");
-		System.out.println("2. Supprimer une plage horaire");
-		System.out.println("3. Afficher les plages horaires");
-		System.out.println("4. Quitter l'éditeur de services");
-		System.out.print("Choix : ");
-		Scanner sc = new Scanner(System.in);
-		int entree = sc.nextInt();
-		switch(entree) {
-			case 1 :
-					System.out.println("Ajouter une plage horaire (XXhYYmin) : ");
-					System.out.print("De : ");
-					String debut = sc.next();
-					System.out.print("à : ");
-					String fin = sc.next();
-					this.ajouterPlage(debut,fin);
-					this.editer();
-				break;
-			case 2 :
-				System.out.println("Supprimer une plage horaire (XXhYYmin) : ");
-				System.out.print("De : ");
-				String debutSup = sc.next();
-				System.out.print("à : ");
-				String finSup = sc.next();
-				this.supprimerPlage(debutSup,finSup);
-				this.editer();
-				break;
-			case 3 :
-				System.out.print("Plages d'ouverture : ");
-				afficherPlage();
-				this.editer();
-				break;
-			case 4 :
-				System.out.println("Retour au menu précédent");
-				break;
-			default :
-				System.out.println("Retour au menu précédent");
-		}
-	}//Editer un service.
-	
-	public boolean[] getDispo() {
-		return this.dispo;
-	}
-	
-	public String getNom() {
-		return nom;
-	}
 
+	public boolean getDispo(int heure) {
+		return this.dispo[heure];
+	}
+	
 	public int compareTo(Service o) {
 		return this.getNom().compareTo(o.getNom());
 	}
