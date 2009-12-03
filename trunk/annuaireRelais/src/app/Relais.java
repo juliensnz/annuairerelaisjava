@@ -58,7 +58,6 @@ public class Relais implements Comparable<Relais> {
 		for (Service si : this.services)
 			if (si.getNom().equals(s.getNom())) {
 				this.services.remove(si);
-				Collections.sort(this.services);
 				return;
 			}
 	}// Retire un service d'un relais (éventuellement plusieurs).
@@ -104,6 +103,8 @@ public class Relais implements Comparable<Relais> {
 	}// Si deux relais ont la même position et les même services, alors ce sont
 
 	public boolean equivalentService(Relais r) {
+		Collections.sort(this.services);
+		Collections.sort(r.services);
 		return this.services.equals(r.services);
 	}// Compare les deux liste de services avec la méthode equals.
 
@@ -151,7 +152,7 @@ public class Relais implements Comparable<Relais> {
 
 	public void setPosition(int x, int y) throws RelaisException {
 		if (x <= 0 || y <= 0)
-			throw new RelaisException("La position d'un relais ne peut être négative !");
+			throw new RelaisException("La position d'un relais ne peut Íêtre néÈgative !");
 		else {
 			this.positionX = x;
 			this.positionY = y;
