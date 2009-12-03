@@ -23,13 +23,6 @@ public abstract class Interface {
 		return entree;
 	}
 
-	public static String getHeureUtilisateur() {
-		Scanner sc = new Scanner(System.in);
-		String entree;
-		entree = sc.next();
-		return entree;
-	}
-
 	public static int getCurrentTime() {
 		// Initialisation du timestamp
 		int heures = (int) (System.currentTimeMillis() / (1000 * 60 * 60) % 24 + 1);

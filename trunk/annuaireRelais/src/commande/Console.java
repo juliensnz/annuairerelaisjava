@@ -90,6 +90,8 @@ public class Console {
 					else
 						System.out.println("Ces deux annuaires sont différents \n");
 				}
+				else
+					System.out.println("Une erreur s'est produite. Retour au menu principal.");
 				this.menuPrincipal();
 				break;
 			default:

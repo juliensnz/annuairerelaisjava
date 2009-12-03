@@ -1,5 +1,7 @@
 package app;
 
+import commande.Interface;
+
 public class Service implements Comparable<Service> {
 
 	private String		nom;
@@ -24,12 +26,8 @@ public class Service implements Comparable<Service> {
 	// valeurs en minutes de 0 à 1440.
 
 	public void ajouterPlage(String heureDebut, String heureFin) {
-		this.ajouterPlage(this.traduire(heureDebut), this.traduire(heureFin));
+		this.ajouterPlage(Service.traduire(heureDebut), Service.traduire(heureFin));
 	}// Ajout d'une plage avec des valeurs formatées en XXhYYmin
-
-	public void supprimerPlage(String heureDebut, String heureFin) {
-		this.supprimerPlage(this.traduire(heureDebut), this.traduire(heureFin));
-	}// Suppression d'une plage avec des valeurs formatées en XXhYYmin
 
 	public void supprimerPlage(int minDebut, int minFin) {
 		int min = minDebut <= minFin ? minDebut : minFin;
@@ -39,17 +37,26 @@ public class Service implements Comparable<Service> {
 			this.dispo[i] = false;
 	}// Supprimer une plage horaire, valeurs en minutes de 0 à 1440
 
-	public String traduire(int time) {
+	public void supprimerPlage(String heureDebut, String heureFin) {
+		this.supprimerPlage(Service.traduire(heureDebut), Service.traduire(heureFin));
+	}// Suppression d'une plage avec des valeurs formatées en XXhYYmin
+
+	public static String traduire(int time) {
 		int heures = time / 60;
 		int minutes = time % 60;
 
 		return (heures < 10 ? "0" + heures : "" + heures) + "h" + (minutes < 10 ? "0" + minutes : "" + minutes);
 	}// Transforme un temps en minutes (0 à 1440) en XXhYYmin
 
-	public int traduire(String time) {
-		int heures = Integer.parseInt(time.substring(0, time.indexOf("h")));
-		int minutes = Integer.parseInt(time.substring(time.indexOf("h") + 1, time.indexOf("h") + 3));
-
+	public static int traduire(String time) {
+		int heures, minutes;
+		try {
+			heures = Integer.parseInt(time.substring(0, time.indexOf("h")));
+			minutes = Integer.parseInt(time.substring(time.indexOf("h") + 1, time.indexOf("h") + 3));
+		}
+		catch (NumberFormatException e) {
+			return Interface.getCurrentTime();
+		}
 		return heures * 60 + minutes;
 	}// Transforme un temps en heures minutes XXhYYmin en entier (0 à 1440)
 
@@ -73,7 +80,7 @@ public class Service implements Comparable<Service> {
 		for (int i = 0; i < this.dispo.length; i++) {
 			ouvertureService = this.dispo[i] == true && etat == false ? i : ouvertureService;
 			// Prend pour valeur vrai au dÈébut d'une plage horaire.
-			resultat += this.dispo[i] == false && etat == true ? " [" + this.traduire(ouvertureService) + " : " + this.traduire(i) + "]" : "";
+			resultat += this.dispo[i] == false && etat == true ? " [" + Service.traduire(ouvertureService) + " : " + Service.traduire(i) + "]" : "";
 			// Se déÈclenche a la fin d'une plage.
 			etat = this.dispo[i];
 		}

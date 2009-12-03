@@ -122,19 +122,6 @@ public abstract class InterfaceAnnuaire extends Interface {
 		}
 	}// Edition d'un relais de l'annuaire (prŽexistant).
 
-	public static void supprimerRelais(Annuaire a) {
-		InterfaceAnnuaire.afficherAnnuaire(a, false, false);
-		System.out.println("Choisissez le relais que vous voulez supprimer : ");
-		System.out.println("Autre. Annuler");
-		System.out.print("Choix : ");
-		int choix = Interface.getInt();
-		if (choix > 0 && choix <= a.getNbRelais()) {
-			choix--;
-			a.supprimerRelais(choix);
-			System.out.println("Le relais a bien ŽtŽ supprimŽ");
-		}
-	}// Supprimer un relais de l'annuaire
-
 	public static void trouverRelais(Annuaire a) {
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("1. Trouver les relais ˆ proximitéŽ");
@@ -188,6 +175,19 @@ public abstract class InterfaceAnnuaire extends Interface {
 		}
 	}
 
+	public static void supprimerRelais(Annuaire a) {
+		InterfaceAnnuaire.afficherAnnuaire(a, false, false);
+		System.out.println("Choisissez le relais que vous voulez supprimer : ");
+		System.out.println("Autre. Annuler");
+		System.out.print("Choix : ");
+		int choix = Interface.getInt();
+		if (choix > 0 && choix <= a.getNbRelais()) {
+			choix--;
+			a.supprimerRelais(choix);
+			System.out.println("Le relais a bien ŽtŽ supprimŽ");
+		}
+	}// Supprimer un relais de l'annuaire
+
 	public static void trouverRayon(Annuaire a, int x, int y) {
 		System.out.print("Rayon de recherche : ");
 		int rayon = getInt();
@@ -237,11 +237,27 @@ public abstract class InterfaceAnnuaire extends Interface {
 	}
 
 	public static void serviceProche(Annuaire a, Service s) {
-		int x, y;
-		System.out.print("Abscisse actuelle :");
+		int x, y, choix, heure;
+		System.out.print("Abscisse :");
 		x = getInt();
-		System.out.print("Ordonnée actuelle :");
+		System.out.print("Ordonnée :");
 		y = getInt();
-		a.rechercherRelais(x, y, s.getNom(), getCurrentTime());
+		System.out.println("Heure :");
+		System.out.println("1. Heure actuelle");
+		System.out.println("2. Autre heure");
+		choix = Interface.getInt();
+		switch (choix) {
+			case 1:
+				heure = Interface.getCurrentTime();
+				break;
+			case 2:
+				System.out.println("Veuillez entrer l'heure sous la forme HHhMMm :");
+				System.out.print("Heure : ");
+				heure = Service.traduire(getString());
+				break;
+			default:
+				heure = Interface.getCurrentTime();
+		}
+		a.rechercherRelais(x, y, s.getNom(), heure);
 	}
 }

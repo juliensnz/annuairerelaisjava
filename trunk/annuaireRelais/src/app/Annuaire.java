@@ -1,105 +1,100 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Map;
 import exceptions.RelaisException;
 
 public class Annuaire {
 
-	private List<Relais>	annuaireRelais	= null;
+	private Map<String, Relais>	annuaireRelais	= null;
 
 	public Annuaire() {
-		this.annuaireRelais = new ArrayList<Relais>();
-	}// Constructeur basique. Ajouter un constructeur prenant une liste en parametre? Un compteur d'annuaires?
+		this.annuaireRelais = new HashMap<String, Relais>();
+	}// Constructeur basique. Ajouter un constructeur prenant une liste en
+
+	// parametre? Un compteur d'annuaires?
 
 	public void ajouterRelais() {
-		Relais nouveauRelais = new Relais();
-		this.annuaireRelais.add(nouveauRelais);
-		Collections.sort(this.annuaireRelais);
+		Relais r = new Relais();
+		this.annuaireRelais.put(r.getNom(), r);
 	}// Ajoute un nouveau relais par défaut, dépourvu de services, de
 
 	// coordonnees (0,0)
 
 	public void ajouterRelais(int positionX, int positionY, String nom) {
-		Relais nouveauRelais = null;
+		Relais r = null;
 		try {
-			nouveauRelais = new Relais(positionX, positionY, nom);
+			r = new Relais(positionX, positionY, nom);
 			System.out.println("Relais crÈééÈ");
-			this.annuaireRelais.add(nouveauRelais);
-			Collections.sort(this.annuaireRelais);
+			this.annuaireRelais.put(r.getNom(), r);
 		}
 		catch (RelaisException e) {
 		}
-	}// Ajoute un relais de coordonnee (positionX, positionY) nomme "nom" à
+	}// Ajoute un relais de coordonnee (positionX, positionY) nomme "nom"
 
 	// l'annuaire.
 
 	public void rechercherRelais(int positionX, int positionY, String service, int heure) {
-		List<Relais> correspond = new ArrayList<Relais>();
-		for (Relais r : this.annuaireRelais)
+		List<String> correspond = new ArrayList<String>();
+		for (String key : this.annuaireRelais.keySet()) {
+			Relais r = this.annuaireRelais.get(key);
 			if (r.contientService(service) && r.getServices(service).getDispo(heure))
-				correspond.add(r);
+				correspond.add(key);
+		}
 		if (correspond.isEmpty())
 			System.out.println("Aucun relais ne correspond à votre recherche ‡à cette heure-ci");
 		// Si la liste des relais proposant le service est vide...
 		else {
-			Relais plusProche = correspond.get(0);
-			// Initialisation du relais le plus proche au premier de la liste
-			// des candidats par défaut
-			for (Relais r : correspond)
-				if (r.distance(positionX, positionY) < plusProche.distance(positionX, positionY))
-					plusProche = r;// Si on trouve un relai plus proche, on
+			Relais r = null, plusProche = this.annuaireRelais.get(correspond.get(0));
+			for (String key : correspond)
+				r = this.annuaireRelais.get(key);
+			if (r.distance(positionX, positionY) < plusProche.distance(positionX, positionY))
+				plusProche = r;// Si on trouve un relai plus proche, on
 			// remplace
-			System.out.println("Le relais le plus proche qui propose le service \"" + service + "\" est situéÈ à " + plusProche.getNom() + " (à " + plusProche.distance(positionX, positionY)
-					+ "km d'ici).");
+			System.out.println("Le relais le plus proche qui propose le service \"" + service + "\" est situéÈ à " + plusProche.getNom() + " (à " + plusProche.distance(positionX, positionY) + "km d'ici).");
 		}
 	}
 
-	public void retirerRelais(int positionX, int positionY) {
-		ListIterator<Relais> it = this.annuaireRelais.listIterator();
-		while (it.hasNext()) {
-			Relais r = it.next();
-			if (r.getX() == positionX && r.getY() == positionY)
-				it.remove();
+	public void retirerRelais(int x, int y) {
+		for (String key : this.annuaireRelais.keySet()) {
+			Relais r = this.annuaireRelais.get(key);
+			if (r.getX() == x && r.getY() == y)
+				this.annuaireRelais.remove(key);
 		}
-		Collections.sort(this.annuaireRelais);
 	}// Retire tous les relais de coordonnées (positionX, positionY)
 
 	public void retirerRelais(String nom) {
-		ListIterator<Relais> it = this.annuaireRelais.listIterator();
-		while (it.hasNext())
-			if (it.next().getNom().equals(nom))
-				it.remove();
-		Collections.sort(this.annuaireRelais);
+		for (String key : this.annuaireRelais.keySet()) {
+			Relais r = this.annuaireRelais.get(key);
+			if (r.getNom().equals(nom))
+				this.annuaireRelais.remove(key);
+		}
 	}// Retire de l'annuaire tous les relais nommés "nom"
 
 	public void retirerRelais(Service s) {
-		ListIterator<Relais> it = this.annuaireRelais.listIterator();
-		while (it.hasNext()) {
-			Relais r = it.next();
-			for (Service si : r.getServices())
-				if (si.getNom().equals(s.getNom()))
-					it.remove();
+		for (String key : this.annuaireRelais.keySet()) {
+			Relais r = this.annuaireRelais.get(key);
+			if (r.getServices().contains(s))
+				this.annuaireRelais.remove(key);
 		}
-		Collections.sort(this.annuaireRelais);
 	}// Retire de l'annuaire tous les relais offrant le service s
 
 	public void retirerService(Service s) {
-		ListIterator<Relais> it = this.annuaireRelais.listIterator();
-		while (it.hasNext())
-			it.next().retirerService(s);
+		for (String key : this.annuaireRelais.keySet()) {
+			Relais r = this.annuaireRelais.get(key);
+			r.retirerService(s);
+		}
 	}// Retire un service donné de tous les relais de l'annuaire
 
 	public void supprimerRelais(int i) {
 		if (i >= 0 && i < this.annuaireRelais.size()) {
 			this.annuaireRelais.remove(i);
-			Collections.sort(this.annuaireRelais);
 		}
 	}// Supprime un relais de l'annuaire a l'index i
 
-	public List<Relais> getListRelais() {
+	public Map<String, Relais> getListRelais() {
 		return this.annuaireRelais;
 	}
 
@@ -112,14 +107,11 @@ public class Annuaire {
 	}// Getter Relais par index
 
 	public Relais getRelais(String nom) {
-		for (Relais r : this.annuaireRelais)
-			if (r.getNom().equals(nom))
-				return r;
-		return null;
+		return this.annuaireRelais.get(nom);
 	}// Getter Relais par nom
 
-	public boolean equals(Annuaire annuaire) {
-		return this.annuaireRelais.equals(annuaire.getListRelais());
+	public boolean equals(Annuaire a) {
+		return this.annuaireRelais.equals(a.annuaireRelais);
 	}
 
 	public boolean isEmpty() {
