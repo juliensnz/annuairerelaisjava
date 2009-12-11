@@ -1,6 +1,8 @@
 package commande;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import app.Annuaire;
 import app.Relais;
 import app.Service;
@@ -78,8 +80,7 @@ public abstract class InterfaceAnnuaire extends Interface {
 	public static void afficherAnnuaire(Annuaire a, boolean coord, boolean serv) {
 		System.out.println("Voici la liste des relais préŽsents dans l'annuaire : \n");
 		int i = 1;
-		for (Relais r : a.getListRelais()) {
-			System.out.print(i + ". ");
+		for (Relais r : a.getMapRelais().values()) {
 			InterfaceRelais.afficher(r, coord, serv);
 			i++;
 		}
@@ -87,11 +88,12 @@ public abstract class InterfaceAnnuaire extends Interface {
 
 	public static void afficherAnnuaire(Annuaire a, Service s) {
 		System.out.println("Voici la liste des relais prŽésents dans l'annuaire offrant le service " + s.getNom() + " : \n");
-		for (Relais r : a.getListRelais())
+		for (Relais r : a.getMapRelais().values())
 			for (Service si : r.getServices())
 				if (si.equals(s))
 					InterfaceRelais.afficher(r, true, true);
 		System.out.println("Fin de la liste");
+		// A remettre dans l'annuaire
 	}// Affiche tous les relais de l'annuaire offrant le service s, comparaison
 
 	// sur les noms
@@ -115,9 +117,8 @@ public abstract class InterfaceAnnuaire extends Interface {
 		InterfaceAnnuaire.afficherAnnuaire(a, false, false);
 		System.out.println("Autre. Annuler");
 		System.out.print("Choix : ");
-		int choix = Interface.getInt();
-		if (choix > 0 && choix <= a.getNbRelais()) {
-			choix--;
+		String choix = Interface.getString();
+		if (!choix.isEmpty()) {
 			InterfaceRelais.editerRelais(a.getRelais(choix));
 		}
 	}// Edition d'un relais de l'annuaire (prŽexistant).
@@ -140,15 +141,14 @@ public abstract class InterfaceAnnuaire extends Interface {
 				InterfaceAnnuaire.trouverRayon(a, x, y);
 				break;
 			case 2:
-				InterfaceAnnuaire.trouverProche(a.getListRelais(), x, y);
+				InterfaceAnnuaire.trouverProche(a.getMapRelais(), x, y);
 				break;
 			case 3:
 				InterfaceAnnuaire.afficherAnnuaire(a, false, false);
 				System.out.print("Choix :");
-				choix = getInt();
-				if (choix > 0 && choix <= a.getNbRelais()) {
-					choix--;
-					Relais r = a.getRelais(choix);
+				String nom = Interface.getString();
+				if (!nom.isEmpty()) {
+					Relais r = a.getRelais(nom);
 					System.out.println("Le relais " + r.getNom() + "se situe à " + r.distance(x, y) + "de la position actuelle");
 				}
 				break;
@@ -160,14 +160,12 @@ public abstract class InterfaceAnnuaire extends Interface {
 	public static void comparerRelais(Annuaire a) {
 		InterfaceAnnuaire.afficherAnnuaire(a, false, false);
 		System.out.println("Autre. Annuler");
-		int choix1, choix2;
-		System.out.print("Comparer le relais n° ");
-		choix1 = Interface.getInt();
-		System.out.print("avec le relais n° ");
-		choix2 = Interface.getInt();
-		if (choix1 > 0 && choix1 <= a.getNbRelais() && choix2 > 0 && choix2 <= a.getNbRelais()) {
-			choix1--;
-			choix2--;
+		String choix1, choix2;
+		System.out.print("Comparer le relais : ");
+		choix1 = Interface.getString();
+		System.out.print("avec le relais : ");
+		choix2 = Interface.getString();
+		if (!choix1.isEmpty() && !choix2.isEmpty()) {
 			if (a.getRelais(choix1).equals(a.getRelais(choix2)))
 				System.out.println("Ces deux relais sont éŽgaux (proposent les mêmes services)\n");
 			else
@@ -180,9 +178,8 @@ public abstract class InterfaceAnnuaire extends Interface {
 		System.out.println("Choisissez le relais que vous voulez supprimer : ");
 		System.out.println("Autre. Annuler");
 		System.out.print("Choix : ");
-		int choix = Interface.getInt();
-		if (choix > 0 && choix <= a.getNbRelais()) {
-			choix--;
+		String choix = Interface.getString();
+		if (!choix.isEmpty()) {
 			a.supprimerRelais(choix);
 			System.out.println("Le relais a bien ŽtŽ supprimŽ");
 		}
@@ -192,7 +189,7 @@ public abstract class InterfaceAnnuaire extends Interface {
 		System.out.print("Rayon de recherche : ");
 		int rayon = getInt();
 		int i = 0;
-		for (Relais r : a.getListRelais()) {
+		for (Relais r : a.getMapRelais().values()) {
 			if (r.distance(x, y) < rayon) {
 				InterfaceRelais.afficher(r, true, true);
 				i++;
@@ -204,10 +201,10 @@ public abstract class InterfaceAnnuaire extends Interface {
 		System.out.println("Retour au menu principal");
 	}
 
-	public static void trouverProche(List<Relais> l, int x, int y) {
-		Relais plusProche = l.get(0);
+	public static void trouverProche(Map<String, Relais> map, int x, int y) {
+		Relais plusProche = map.get(0);
 		double min = plusProche.distance(x, y);
-		for (Relais r : l)
+		for (Relais r : map.values())
 			if (r.distance(x, y) < min)
 				plusProche = r;
 		System.out.println("Le relais le plus proche est : " + plusProche.getNom());
@@ -258,6 +255,28 @@ public abstract class InterfaceAnnuaire extends Interface {
 			default:
 				heure = Interface.getCurrentTime();
 		}
-		a.rechercherRelais(x, y, s.getNom(), heure);
+		InterfaceAnnuaire.rechercherRelais(a, x, y, s.getNom(), heure);
+	}
+
+	public static void rechercherRelais(Annuaire a, int x, int y, String service, int heure) {
+		List<String> correspond = new ArrayList<String>();
+		Map<String, Relais> map = a.getMapRelais();
+		for (String key : map.keySet()) {
+			Relais r = map.get(key);
+			if (r.contientService(service) && r.getServices(service).getDispo(heure))
+				correspond.add(key);
+		}
+		if (correspond.isEmpty())
+			System.out.println("Aucun relais ne correspond ˆ votre recherche àˆ cette heure-ci");
+		// Si la liste des relais proposant le service est vide...
+		else {
+			Relais r = null, plusProche = map.get(correspond.get(0));
+			for (String key : correspond)
+				r = map.get(key);
+			if (r.distance(x, y) < plusProche.distance(x, y))
+				plusProche = r;// Si on trouve un relai plus proche, on
+			// remplace
+			System.out.println("Le relais le plus proche qui propose le service \"" + service + "\" est situŽé ˆ " + plusProche.getNom() + " (ˆ " + plusProche.distance(x, y) + "km d'ici).");
+		}
 	}
 }

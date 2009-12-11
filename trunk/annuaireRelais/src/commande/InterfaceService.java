@@ -88,7 +88,7 @@ public abstract class InterfaceService extends Interface {
 				System.out.println("Supprimer une plage horaire (XXhYYmin) : ");
 				System.out.print("De : ");
 				String debutSup = Interface.getString();
-				System.out.print("ˆ : ");
+				System.out.print("ˆà : ");
 				String finSup = Interface.getString();
 				s.supprimerPlage(debutSup, finSup);
 				break;
