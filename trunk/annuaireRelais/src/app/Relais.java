@@ -22,9 +22,9 @@ public class Relais implements Comparable<Relais> {
 
 	public Relais(int x, int y, String nom) throws RelaisException {
 		if (x < 0 || y < 0)
-			throw new RelaisException("La position d'un relais ne peut tre nŽgative !");
+			throw new RelaisException("La position d'un relais ne peut être néŽgative !");
 		else if (nom.isEmpty())
-			throw new RelaisException("Le nom d'un relais ne peut pas tre vide !");
+			throw new RelaisException("Le nom d'un relais ne peut pas être vide !");
 		else {
 			this.positionX = x;
 			this.positionY = y;
@@ -40,7 +40,7 @@ public class Relais implements Comparable<Relais> {
 			for (Service s : this.services)
 				if (s.equals(nouvService)) {
 					contient = true;
-					throw new RelaisException("Le service existe dŽjˆ");
+					throw new RelaisException("Le service existe dŽéjàˆ");
 				}
 			if (!contient)
 				this.services.add(nouvService);
@@ -60,7 +60,7 @@ public class Relais implements Comparable<Relais> {
 				this.services.remove(si);
 				return;
 			}
-	}// Retire un service d'un relais (Žventuellement plusieurs).
+	}// Retire un service d'un relais (Žéventuellement plusieurs).
 
 	public boolean contientService(String nom) {
 		for (Service s : this.services)
