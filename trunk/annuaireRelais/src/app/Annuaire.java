@@ -1,0 +1,164 @@
+package app;
+
+import java.util.Collections;
+import java.util.ListIterator;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+import exceptions.RelaisException;
+
+public class Annuaire {
+	private List<Relais> annuaireRelais = null;
+
+	public Annuaire() {
+		this.annuaireRelais = new ArrayList<Relais>();
+	}// Constructeur basique. Ajouter un constructeur prenant une liste en parametre? Un compteur d'annuaires?
+
+	public void ajouterRelais() {
+		Relais nouveauRelais = new Relais();
+		this.annuaireRelais.add(nouveauRelais);
+		Collections.sort(this.annuaireRelais);
+	}// Ajoute un nouveau relais par défaut, dépourvu de services, de coordonnees (0,0)
+
+	public void ajouterRelais(int positionX, int positionY, String nom) {
+		Relais nouveauRelais = null;
+		try {
+			nouveauRelais = new Relais(positionX, positionY, nom);
+			System.out.println("Relais créé \n");
+			this.annuaireRelais.add(nouveauRelais);
+			Collections.sort(this.annuaireRelais);
+		} catch (RelaisException e) {}
+	}// Ajoute un relais de coordonnee (positionX, positionY) nomme "nom" à
+	// l'annuaire.
+
+	public void editerUnRelais() {
+		Scanner scan = new Scanner(System.in);
+		int choixDuRelais;
+		System.out.println("Choisissez le relais que vous voulez éditer : ");
+		for (int i = 0; i < this.annuaireRelais.size(); i++)
+			System.out.println((i + 1) + " : " + this.annuaireRelais.get(i).getNom());
+		// Listage des relais
+		do {
+			System.out.print("Choix : ");
+			choixDuRelais = scan.nextInt() - 1;
+		} while (!(choixDuRelais >= 0 && choixDuRelais < this.annuaireRelais.size()));
+		this.annuaireRelais.get(choixDuRelais).editer();
+	}// Edition d'un relais de l'annuaire (préexistant).
+
+	public void retirerRelais(String nom) {
+		ListIterator<Relais> it = this.annuaireRelais.listIterator();
+		while (it.hasNext()) {
+			if ((it.next()).getNom().equals(nom))
+				it.remove();
+		}
+		Collections.sort(this.annuaireRelais);
+	}// Retire de l'annuaire tous les relais nommés "nom"
+
+	public void retirerRelais(int positionX, int positionY) {
+		ListIterator<Relais> it = this.annuaireRelais.listIterator();
+		while (it.hasNext()) {
+			Relais r = it.next();
+			if (r.getX() == positionX && r.getY() == positionY)
+				it.remove();
+		}
+		Collections.sort(this.annuaireRelais);
+	}// Retire tous les relais de coordonnées (positionX, positionY)
+
+	public void retirerRelais(Service s) {
+		ListIterator<Relais> it = this.annuaireRelais.listIterator();
+		while (it.hasNext()) {
+			Relais r = it.next();
+			for (Service si : r.getServices()) {
+				if (si.getNom().equals(s.getNom()))
+					it.remove();
+			}
+		}
+		Collections.sort(this.annuaireRelais);
+	}// Retire de l'annuaire tous les relais offrant le service s
+
+	public void retirerService(Service s) {
+		ListIterator<Relais> it = this.annuaireRelais.listIterator();
+		while (it.hasNext())
+			it.next().retirerService(s);
+	}// Retire un service donné de tous les relais de l'annuaire
+
+	public void afficherAnnuaire(boolean service) {
+		System.out.println("Voici la liste des relais présents dans l'annuaire : \n");
+		int i = 1;
+		for (Relais r : this.annuaireRelais) {
+			System.out.println(i+".");
+			r.afficherRelais(service);
+			System.out.println("=========================");
+			i++;
+		}
+	}// Affiche tout l'annuaire
+
+	public void afficherAnnuaire(Service s) {
+		System.out.println("Voici la liste des relais présents dans l'annuaire offrant le service "
+				+ s.getNom() + " : \n");
+		for (Relais r : this.annuaireRelais) {
+			for (Service si : r.getServices()) {
+				if (si.getNom().equals(s.getNom())) {
+					r.afficherRelais(true);
+					System.out.println("=========================");
+				}
+			}
+		}
+		System.out.println("Fin de la liste");
+	}// Affiche tous les relais de l'annuaire offrant le service s, comparaison sur les noms
+
+	public void rechercherRelais(int positionX, int positionY, String service) {
+		List<Relais> correspond = new ArrayList<Relais>();
+		int heures = (int) (System.currentTimeMillis() / (1000 * 60 * 60) % 24 + 1);// Initialisation du timestamp
+		int minutes = (int) (System.currentTimeMillis() / (1000 * 60) % 60);
+		System.out.println("Heure actuelle : " + heures + "h" + minutes + "min");
+		for (Relais r : this.annuaireRelais) {
+			if (r.contientService(service) && r.getServices(service).getDispo()[heures * 60 + minutes]) {
+				correspond.add(r);
+			}// On trouve la liste des relais proposant le service.
+		}
+		if (correspond.isEmpty())
+			System.out.println("Aucun relais ne correspond à votre recherche à cette heure-ci");
+		// Si la liste des relais proposant le service est vide...
+		else {
+			Relais plusProche = correspond.get(0);
+			// Initialisation du relais le plus proche au premier de la liste des candidats par défaut
+			for (Relais r : correspond) {
+				if (r.distance(positionX, positionY) < plusProche.distance(positionX, positionY))
+					plusProche = r;// Si on trouve un relai plus proche, on remplace
+			}
+			System.out.println("Le relais le plus proche qui propose le service \"" + service + "\" est situé à " + plusProche.getNom() + " (à " + plusProche.distance(positionX, positionY) + "km d'ici).");
+		}
+	}
+
+	public void supprimerRelais(int i){
+		if(i >= 0 && i < this.annuaireRelais.size()){
+			this.annuaireRelais.remove(i);
+			Collections.sort(this.annuaireRelais);
+		}
+	}//Supprime un relais de l'annuaire
+	
+	public Relais getRelais(int i) {
+		return this.annuaireRelais.get(i);
+	}// Getter Relais par index
+
+	public Relais getRelais(String nom) {
+		for (Relais r : this.annuaireRelais) {
+			if (r.getNom().equals(nom))
+				return r;
+		}
+		return null;
+	}// Getter Relais par nom
+
+	public int getNbRelais() {
+		return this.annuaireRelais.size();
+	}
+
+	public List<Relais> getListRelais() {
+		return this.annuaireRelais;
+	}
+
+	public boolean equals(Annuaire annuaire) {
+		return this.annuaireRelais.equals(annuaire.getListRelais());
+	}
+}
